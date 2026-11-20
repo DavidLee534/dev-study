@@ -56,9 +56,27 @@
 - 입력 검증, 시크릿 관리
 - 테스트 전략, 코드 품질, 리팩터링
 
+## 폴더 구조
+
+```text
+dev-study/
+├── language/    # 언어 (Java, TS, Python …)
+├── frontend/    # UI, React, Next.js …
+├── backend/     # API, 서버 프레임워크
+├── database/    # SQL/NoSQL, 인덱스, ORM
+├── mobile/      # Android, iOS, RN, Flutter
+├── infra/       # Docker, K8s, CI/CD, 클라우드
+├── cs/          # 자료구조, OS, 네트워크, 설계
+├── tools/       # Git, IDE, 협업
+└── security/    # 보안, 테스트, 품질
+```
+
+주제 안에서 필요하면 하위 폴더를 더 나눕니다.  
+예: `language/typescript/`, `cs/algorithms/`
+
 ## 이 저장소를 쓰는 방식
 
-1. 주제를 하나 정합니다.
+1. 주제를 하나 정하고 위 폴더에 둡니다.
 2. 이해한 내용과 코드를 문서로 정리합니다.
 3. 커밋해서 기록으로 남깁니다.
 
