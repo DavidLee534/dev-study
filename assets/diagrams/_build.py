@@ -397,16 +397,17 @@ def diagram_os_process_thread(theme: Theme):
 
 
 def diagram_os_memory_layout(theme: Theme):
-    img, d = canvas(720, 480, theme)
+    img, d = canvas(720, 500, theme)
     d.text((PAD, PAD), "프로세스 메모리 레이아웃", fill=theme.ink, font=F_TITLE)
 
+    # 위 = 높은 주소: 스택은 아래로, 힙은 위로 자란다
     regions = [
-        ("Stack", "함수 호출 · 지역 변수", theme.highlight, "↑ 성장"),
-        ("Heap", "동적 할당 (new / malloc)", theme.fill, "↓ 성장"),
+        ("Stack", "함수 호출 · 지역 변수", theme.highlight, "↓ 성장"),
+        ("Heap", "동적 할당 (new / malloc)", theme.fill, "↑ 성장"),
         ("Data / BSS", "전역 · 정적 변수", theme.soft, ""),
         ("Text (Code)", "실행 코드", theme.fill, ""),
     ]
-    x0, y0, bw, bh = 180, 100, 320, 70
+    x0, y0, bw, bh = 180, 110, 320, 70
     for i, (title, desc, fill, growth) in enumerate(regions):
         y = y0 + i * (bh + 12)
         box(d, (x0, y, x0 + bw, y + bh), theme, fill=fill)
@@ -415,7 +416,9 @@ def diagram_os_memory_layout(theme: Theme):
         if growth:
             d.text((x0 + bw + 16, y + 24), growth, fill=theme.orange, font=F_SMALL)
 
-    d.text((PAD, 420), "높은 주소 ↔ 낮은 주소. 스택과 힙이 가운데로 자란다", fill=theme.accent, font=F_HINT)
+    d.text((x0 - 8, y0 - 22), "높은 주소", fill=theme.muted, font=F_SMALL)
+    d.text((x0 - 8, y0 + 4 * (bh + 12) - 8), "낮은 주소", fill=theme.muted, font=F_SMALL)
+    d.text((PAD, 440), "위가 높은 주소. 스택은 아래·힙은 위로 가운데를 향해 자란다", fill=theme.accent, font=F_HINT)
     save("os-memory-layout.png", img, theme)
 
 
@@ -455,6 +458,102 @@ def diagram_os_deadlock(theme: Theme):
     save("os-deadlock.png", img, theme)
 
 
+def diagram_net_layers(theme: Theme):
+    img, d = canvas(720, 420, theme)
+    d.text((PAD, PAD), "TCP/IP 계층: 역할을 층으로", fill=theme.ink, font=F_TITLE)
+    layers = [
+        ("Application", "HTTP · DNS · SSH", theme.highlight),
+        ("Transport", "TCP / UDP · 포트", theme.fill),
+        ("Internet", "IP 주소 · 라우팅", theme.soft),
+        ("Link", "같은 구간 전달", theme.fill),
+    ]
+    x0, y0, bw, bh = 160, 100, 400, 58
+    for i, (title, desc, fill) in enumerate(layers):
+        y = y0 + i * (bh + 10)
+        box(d, (x0, y, x0 + bw, y + bh), theme, fill=fill)
+        d.text((x0 + 18, y + 10), title, fill=theme.ink, font=F_BODY)
+        d.text((x0 + 18, y + 34), desc, fill=theme.muted, font=F_SMALL)
+    d.text((PAD, 370), "위는 말의 내용, 아래는 실어 나르는 방법", fill=theme.accent, font=F_HINT)
+    save("net-layers.png", img, theme)
+
+
+def diagram_net_dns_port(theme: Theme):
+    img, d = canvas(860, 360, theme)
+    d.text((PAD, PAD), "DNS → IP, 그리고 포트", fill=theme.ink, font=F_TITLE)
+
+    box(d, (PAD, 120, 250, 200), theme, fill=theme.soft)
+    center_text(d, 150, 148, "example.com", F_BODY, theme.ink)
+    center_text(d, 150, 176, "이름", F_SMALL, theme.muted)
+
+    d.line((260, 160, 330, 160), fill=theme.ink, width=2)
+    d.polygon([(330, 160), (318, 154), (318, 166)], fill=theme.ink)
+    d.text((265, 128), "DNS", fill=theme.orange, font=F_SMALL)
+
+    box(d, (340, 120, 520, 200), theme, fill=theme.highlight)
+    center_text(d, 430, 148, "93.184.216.34", F_BODY, theme.ink)
+    center_text(d, 430, 176, "IP 주소", F_SMALL, theme.muted)
+
+    d.line((530, 160, 600, 160), fill=theme.ink, width=2)
+    d.polygon([(600, 160), (588, 154), (588, 166)], fill=theme.ink)
+    d.text((535, 128), "+ port", fill=theme.orange, font=F_SMALL)
+
+    box(d, (610, 120, 800, 200), theme, fill=theme.fill)
+    center_text(d, 705, 148, ":443", F_BODY, theme.ink)
+    center_text(d, 705, 176, "HTTPS 문", F_SMALL, theme.muted)
+
+    d.text((PAD, 250), "건물(IP) + 호수(포트)로 서비스에 도착한다", fill=theme.accent, font=F_HINT)
+    d.text((PAD, 290), "DNS는 상호(이름)를 주소로 바꿔 주는 전화부", fill=theme.muted, font=F_SMALL)
+    save("net-dns-port.png", img, theme)
+
+
+def diagram_net_http(theme: Theme):
+    img, d = canvas(820, 360, theme)
+    d.text((PAD, PAD), "HTTP: 요청 한 번, 응답 한 번", fill=theme.ink, font=F_TITLE)
+
+    box(d, (PAD, 120, 260, 220), theme, fill=theme.soft)
+    center_text(d, 158, 150, "Client", F_BODY, theme.ink)
+    center_text(d, 158, 180, "Browser / App", F_SMALL, theme.muted)
+
+    box(d, (560, 120, 760, 220), theme, fill=theme.soft)
+    center_text(d, 660, 150, "Server", F_BODY, theme.ink)
+    center_text(d, 660, 180, "API / Web", F_SMALL, theme.muted)
+
+    d.line((270, 145, 540, 145), fill=theme.orange, width=3)
+    d.polygon([(540, 145), (528, 139), (528, 151)], fill=theme.orange)
+    d.text((330, 112), "Request  GET /users", fill=theme.orange, font=F_SMALL)
+
+    d.line((540, 195, 270, 195), fill=theme.accent, width=3)
+    d.polygon([(270, 195), (282, 189), (282, 201)], fill=theme.accent)
+    d.text((330, 210), "Response  200 JSON", fill=theme.accent, font=F_SMALL)
+
+    d.text((PAD, 280), "HTTPS는 이 대화를 TLS로 감싼다", fill=theme.accent, font=F_HINT)
+    save("net-http.png", img, theme)
+
+
+def diagram_net_lb(theme: Theme):
+    img, d = canvas(820, 400, theme)
+    d.text((PAD, PAD), "로드밸런서: 요청을 나누어 전달", fill=theme.ink, font=F_TITLE)
+
+    box(d, (PAD, 160, 200, 230), theme, fill=theme.soft)
+    center_text(d, 128, 193, "Client", F_BODY, theme.ink)
+
+    d.line((210, 195, 300, 195), fill=theme.ink, width=2)
+    d.polygon([(300, 195), (288, 189), (288, 201)], fill=theme.ink)
+
+    box(d, (310, 150, 500, 240), theme, fill=theme.highlight)
+    center_text(d, 405, 180, "Load Balancer", F_BODY, theme.ink)
+    center_text(d, 405, 208, "안내 데스크", F_SMALL, theme.muted)
+
+    targets = [("App 1", 120), ("App 2", 195), ("App 3", 270)]
+    for label, y in targets:
+        d.line((500, 195, 580, y + 25), fill=theme.line, width=2)
+        box(d, (580, y, 760, y + 50), theme, fill=theme.fill)
+        center_text(d, 670, y + 23, label, F_BODY, theme.ink)
+
+    d.text((PAD, 340), "죽은 인스턴스는 health check로 빼 둔다", fill=theme.accent, font=F_HINT)
+    save("net-lb.png", img, theme)
+
+
 ALL = [
     diagram_array,
     diagram_linked,
@@ -473,6 +572,10 @@ ALL = [
     diagram_os_process_thread,
     diagram_os_memory_layout,
     diagram_os_deadlock,
+    diagram_net_layers,
+    diagram_net_dns_port,
+    diagram_net_http,
+    diagram_net_lb,
 ]
 
 

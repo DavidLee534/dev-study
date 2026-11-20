@@ -354,6 +354,409 @@ def clip_two_pointer(theme: Theme):
     save_gif("two-pointer.gif", frames, theme, duration=700)
 
 
+def clip_net_dns(theme: Theme):
+    frames = []
+
+    def draw_scene(step=0, hint=""):
+        img, d = new_frame(theme)
+        d.text((PAD, PAD), "DNS: 이름 → IP", fill=theme.ink, font=F18)
+
+        name_fill = theme.highlight if step == 0 else theme.soft
+        rounded(d, (PAD, 140, 240, 220), theme, fill=name_fill)
+        tw = d.textlength("example.com", font=F14)
+        d.text((PAD + (180 - tw) / 2 + 10, 162), "example.com", fill=theme.ink, font=F14)
+        d.text((PAD + 50, 188), "이름", fill=theme.muted, font=F13)
+
+        if step >= 1:
+            d.line((250, 180, 320, 180), fill=theme.ink, width=2)
+            d.polygon([(320, 180), (308, 174), (308, 186)], fill=theme.ink)
+            d.text((255, 148), "DNS", fill=theme.orange, font=F13)
+
+        dns_fill = theme.highlight if step == 1 else (theme.soft if step >= 1 else theme.fill)
+        rounded(d, (330, 140, 480, 220), theme, fill=dns_fill)
+        d.text((360, 168), "조회", fill=theme.ink, font=F16)
+
+        if step >= 2:
+            d.line((490, 180, 560, 180), fill=theme.ink, width=2)
+            d.polygon([(560, 180), (548, 174), (548, 186)], fill=theme.ink)
+
+        ip_fill = theme.highlight if step >= 2 else theme.fill
+        rounded(d, (570, 140, 760, 220), theme, fill=ip_fill)
+        ip = "93.184.216.34" if step >= 2 else "?.?.?.?"
+        tw = d.textlength(ip, font=F14)
+        d.text((570 + (190 - tw) / 2, 162), ip, fill=theme.ink, font=F14)
+        d.text((625, 188), "IP", fill=theme.muted, font=F13)
+
+        if step >= 3:
+            d.text((PAD, 270), "이어서 :443 포트로 연결", fill=theme.accent, font=F14)
+            rounded(d, (PAD, 310, 220, 360), theme, fill=theme.highlight)
+            d.text((PAD + 55, 326), ":443", fill=theme.ink, font=F16)
+
+        d.text((PAD, H - PAD - 8), hint or "도메인 이름을 주소로 바꾼다", fill=theme.muted, font=F13)
+        return img
+
+    frames.append(draw_scene(0, "브라우저가 이름을 든다"))
+    frames.append(draw_scene(0, "브라우저가 이름을 든다"))
+    frames.append(draw_scene(1, "DNS에 물어본다"))
+    frames.append(draw_scene(1, "DNS에 물어본다"))
+    frames.append(draw_scene(2, "IP를 받는다"))
+    frames.append(draw_scene(2, "IP를 받는다"))
+    frames.append(draw_scene(3, "IP + 포트로 서비스에 도착"))
+    frames.append(draw_scene(3, "IP + 포트로 서비스에 도착"))
+    save_gif("net-dns.gif", frames, theme, duration=600)
+
+
+def clip_net_http(theme: Theme):
+    frames = []
+
+    def draw_scene(step=0, hint=""):
+        img, d = new_frame(theme)
+        d.text((PAD, PAD), "HTTP: 요청 → 응답", fill=theme.ink, font=F18)
+
+        rounded(d, (PAD, 140, 230, 250), theme, fill=theme.soft)
+        d.text((PAD + 55, 175), "Client", fill=theme.ink, font=F16)
+        d.text((PAD + 35, 205), "Browser", fill=theme.muted, font=F13)
+
+        rounded(d, (570, 140, 760, 250), theme, fill=theme.soft)
+        d.text((610, 175), "Server", fill=theme.ink, font=F16)
+        d.text((610, 205), "API", fill=theme.muted, font=F13)
+
+        if step >= 1:
+            y = 165
+            d.line((240, y, 550, y), fill=theme.orange, width=3)
+            d.polygon([(550, y), (538, y - 6), (538, y + 6)], fill=theme.orange)
+            d.text((300, 132), "GET /users", fill=theme.orange, font=F14)
+
+        if step >= 2:
+            y = 220
+            d.line((550, y, 240, y), fill=theme.accent, width=3)
+            d.polygon([(240, y), (252, y - 6), (252, y + 6)], fill=theme.accent)
+            d.text((300, 235), "200 JSON", fill=theme.accent, font=F14)
+
+        if step >= 3:
+            d.text((PAD, 300), "HTTPS = 같은 대화 + TLS 보호", fill=theme.accent, font=F14)
+
+        d.text((PAD, H - PAD - 8), hint or "한 왕복이 기본 단위", fill=theme.muted, font=F13)
+        return img
+
+    frames.append(draw_scene(0, "클라이언트와 서버"))
+    frames.append(draw_scene(1, "요청을 보낸다"))
+    frames.append(draw_scene(1, "요청을 보낸다"))
+    frames.append(draw_scene(2, "응답을 받는다"))
+    frames.append(draw_scene(2, "응답을 받는다"))
+    frames.append(draw_scene(3, "암호화가 필요하면 HTTPS"))
+    frames.append(draw_scene(3, "암호화가 필요하면 HTTPS"))
+    save_gif("net-http.gif", frames, theme, duration=650)
+
+
+def clip_net_tcp(theme: Theme):
+    frames = []
+    steps = [
+        (0, "연결 전"),
+        (1, "SYN → 연결하자"),
+        (2, "SYN-ACK → 알겠어"),
+        (3, "ACK → 시작"),
+        (4, "데이터 전송 가능"),
+    ]
+
+    def draw_scene(step, hint):
+        img, d = new_frame(theme)
+        d.text((PAD, PAD), "TCP: 3-way handshake", fill=theme.ink, font=F18)
+
+        rounded(d, (PAD, 150, 220, 240), theme, fill=theme.soft)
+        d.text((PAD + 55, 185), "Client", fill=theme.ink, font=F16)
+
+        rounded(d, (580, 150, 760, 240), theme, fill=theme.soft)
+        d.text((620, 185), "Server", fill=theme.ink, font=F16)
+
+        labels = [
+            (1, 165, "SYN", theme.orange, True),
+            (2, 200, "SYN-ACK", theme.accent, False),
+            (3, 235, "ACK", theme.orange, True),
+        ]
+        for need, y, text, color, to_server in labels:
+            if step < need:
+                continue
+            if to_server:
+                d.line((230, y, 560, y), fill=color, width=3)
+                d.polygon([(560, y), (548, y - 6), (548, y + 6)], fill=color)
+                d.text((340, y - 22), text, fill=color, font=F13)
+            else:
+                d.line((560, y, 230, y), fill=color, width=3)
+                d.polygon([(230, y), (242, y - 6), (242, y + 6)], fill=color)
+                d.text((340, y - 22), text, fill=color, font=F13)
+
+        if step >= 4:
+            rounded(d, (280, 300, 520, 350), theme, fill=theme.highlight)
+            d.text((320, 316), "연결 확립", fill=theme.ink, font=F16)
+
+        d.text((PAD, H - PAD - 8), hint, fill=theme.muted, font=F13)
+        return img
+
+    for step, hint in steps:
+        frames.append(draw_scene(step, hint))
+        frames.append(draw_scene(step, hint))
+    save_gif("net-tcp.gif", frames, theme, duration=600)
+
+
+def clip_net_lb(theme: Theme):
+    frames = []
+
+    def draw_scene(target=None, hint=""):
+        img, d = new_frame(theme)
+        d.text((PAD, PAD), "로드밸런서: 요청을 나눈다", fill=theme.ink, font=F18)
+
+        rounded(d, (PAD, 170, 190, 250), theme, fill=theme.soft)
+        d.text((PAD + 40, 200), "Client", fill=theme.ink, font=F16)
+
+        d.line((200, 210, 280, 210), fill=theme.ink, width=2)
+        d.polygon([(280, 210), (268, 204), (268, 216)], fill=theme.ink)
+
+        rounded(d, (290, 160, 480, 260), theme, fill=theme.highlight)
+        d.text((318, 190), "Load Balancer", fill=theme.ink, font=F14)
+        d.text((345, 218), "안내", fill=theme.muted, font=F13)
+
+        apps = [("App 1", 120), ("App 2", 200), ("App 3", 280)]
+        for i, (label, y) in enumerate(apps):
+            active = target == i
+            d.line((480, 210, 560, y + 25), fill=theme.orange if active else theme.line, width=3 if active else 2)
+            fill = theme.highlight if active else theme.fill
+            rounded(d, (560, y, 760, y + 50), theme, fill=fill)
+            tw = d.textlength(label, font=F14)
+            d.text((560 + (200 - tw) / 2, y + 16), label, fill=theme.ink, font=F14)
+
+        d.text((PAD, H - PAD - 8), hint or "여러 서버에 부하를 분산", fill=theme.muted, font=F13)
+        return img
+
+    frames.append(draw_scene(None, "요청이 들어온다"))
+    for i in range(3):
+        frames.append(draw_scene(i, f"이번엔 App {i + 1}으로"))
+        frames.append(draw_scene(i, f"이번엔 App {i + 1}으로"))
+    frames.append(draw_scene(None, "죽은 서버는 health check로 제외"))
+    save_gif("net-lb.gif", frames, theme, duration=550)
+
+
+def clip_os_schedule(theme: Theme):
+    frames = []
+    # states: which process is running (0/1), and phase hint
+    scenes = [
+        (None, ["Ready", "Ready"], "둘 다 Ready 큐에 대기"),
+        (0, ["Running", "Ready"], "Skipper가 CPU 사용"),
+        (0, ["Running", "Ready"], "시간 할당 거의 끝"),
+        (1, ["Ready", "Running"], "context switch → Kowalski"),
+        (1, ["Waiting", "Running"], "Skipper는 I/O Waiting"),
+        (0, ["Running", "Ready"], "다시 Skipper 실행"),
+    ]
+
+    def draw_scene(running, states, hint):
+        img, d = new_frame(theme)
+        d.text((PAD, PAD), "스케줄링: 누가 CPU를 쓰나", fill=theme.ink, font=F18)
+
+        rounded(d, (300, 110, 500, 170), theme, fill=theme.highlight if running is not None else theme.fill)
+        d.text((355, 130), "CPU", fill=theme.ink, font=F16)
+
+        procs = [("Skipper", 120), ("Kowalski", 420)]
+        for i, (name, x) in enumerate(procs):
+            st = states[i]
+            if st == "Running":
+                fill = theme.highlight
+            elif st == "Waiting":
+                fill = theme.soft
+            else:
+                fill = theme.fill
+            rounded(d, (x, 220, x + 200, 300), theme, fill=fill)
+            d.text((x + 55, 240), name, fill=theme.ink, font=F14)
+            tw = d.textlength(st, font=F13)
+            d.text((x + (200 - tw) / 2, 268), st, fill=theme.orange if st == "Running" else theme.muted, font=F13)
+            if running == i:
+                d.line((x + 100, 220, 400, 170), fill=theme.orange, width=3)
+
+        d.text((PAD, H - PAD - 8), hint, fill=theme.muted, font=F13)
+        return img
+
+    for running, states, hint in scenes:
+        frames.append(draw_scene(running, states, hint))
+        frames.append(draw_scene(running, states, hint))
+    save_gif("os-schedule.gif", frames, theme, duration=600)
+
+
+def clip_os_pagefault(theme: Theme):
+    frames = []
+
+    def draw_scene(step, hint):
+        img, d = new_frame(theme)
+        d.text((PAD, PAD), "가상 메모리: 페이지 폴트", fill=theme.ink, font=F18)
+
+        rounded(d, (PAD, 130, 360, 280), theme, fill=theme.soft)
+        d.text((PAD + 110, 145), "RAM (책상)", fill=theme.ink, font=F14)
+        pages = ["P1", "P2", "·"]
+        for i, p in enumerate(pages):
+            x = PAD + 30 + i * 100
+            fill = theme.highlight if (step >= 3 and i == 2) else theme.fill
+            label = "P3" if (step >= 3 and i == 2) else p
+            rounded(d, (x, 190, x + 80, 250), theme, fill=fill)
+            tw = d.textlength(label, font=F14)
+            d.text((x + (80 - tw) / 2, 212), label, fill=theme.ink if label != "·" else theme.muted, font=F14)
+
+        rounded(d, (440, 130, 760, 280), theme, fill=theme.fill)
+        d.text((520, 145), "Disk (서가)", fill=theme.ink, font=F14)
+        disk_pages = ["P3", "P4", "P5"]
+        for i, p in enumerate(disk_pages):
+            x = 470 + i * 90
+            fill = theme.highlight if (step == 1 and i == 0) else theme.fill
+            if step >= 3 and i == 0:
+                fill = theme.line
+            rounded(d, (x, 190, x + 70, 250), theme, fill=fill)
+            color = theme.muted if (step >= 3 and i == 0) else theme.ink
+            tw = d.textlength(p if not (step >= 3 and i == 0) else "·", font=F14)
+            label = "·" if (step >= 3 and i == 0) else p
+            d.text((x + (70 - tw) / 2, 212), label, fill=color, font=F14)
+
+        if step == 1:
+            d.text((PAD, 310), "접근하려던 P3가 RAM에 없음 → page fault", fill=theme.orange, font=F14)
+        if step == 2:
+            d.line((470, 220, 320, 220), fill=theme.orange, width=3)
+            d.polygon([(320, 220), (332, 214), (332, 226)], fill=theme.orange)
+            d.text((340, 310), "디스크로 가져와 RAM에 올림", fill=theme.accent, font=F14)
+
+        d.text((PAD, H - PAD - 8), hint, fill=theme.muted, font=F13)
+        return img
+
+    frames.append(draw_scene(0, "필요한 페이지만 RAM에 둔다"))
+    frames.append(draw_scene(1, "없는 페이지에 접근"))
+    frames.append(draw_scene(1, "없는 페이지에 접근"))
+    frames.append(draw_scene(2, "디스크로 가져오는 중"))
+    frames.append(draw_scene(2, "디스크로 가져오는 중"))
+    frames.append(draw_scene(3, "이제 RAM에서 이어서 실행"))
+    frames.append(draw_scene(3, "이제 RAM에서 이어서 실행"))
+    save_gif("os-pagefault.gif", frames, theme, duration=650)
+
+
+def clip_os_sync(theme: Theme):
+    frames = []
+
+    def draw_scene(step, hint):
+        img, d = new_frame(theme)
+        d.text((PAD, PAD), "동기화: 동시에 고치면 꼬인다", fill=theme.ink, font=F18)
+
+        rounded(d, (300, 120, 500, 190), theme, fill=theme.highlight if step >= 1 else theme.fill)
+        val = {0: "0", 1: "0", 2: "1?", 3: "1", 4: "2"}.get(step, "2")
+        d.text((355, 135), "공유 변수", fill=theme.muted, font=F13)
+        tw = d.textlength(val, font=F18)
+        d.text((400 - tw / 2, 155), val, fill=theme.ink, font=F18)
+
+        rounded(d, (PAD, 230, 260, 320), theme, fill=theme.soft)
+        d.text((PAD + 70, 255), "A", fill=theme.ink, font=F16)
+        a_act = ["대기", "읽기 0", "쓰기 1", "대기", "락 후 +1"][min(step, 4)]
+        d.text((PAD + 50, 285), a_act, fill=theme.orange if step in (1, 2, 4) else theme.muted, font=F13)
+
+        rounded(d, (540, 230, 760, 320), theme, fill=theme.soft)
+        d.text((620, 255), "B", fill=theme.ink, font=F16)
+        b_act = ["대기", "읽기 0", "쓰기 1", "덮어씀", "대기"][min(step, 4)]
+        d.text((590, 285), b_act, fill=theme.orange if step in (1, 2, 3) else theme.muted, font=F13)
+
+        if step >= 4:
+            d.text((PAD, 350), "락으로 한 명씩 → 결과가 맞다", fill=theme.accent, font=F14)
+
+        d.text((PAD, H - PAD - 8), hint, fill=theme.muted, font=F13)
+        return img
+
+    frames.append(draw_scene(0, "초기값 0"))
+    frames.append(draw_scene(1, "둘 다 동시에 읽음"))
+    frames.append(draw_scene(1, "둘 다 동시에 읽음"))
+    frames.append(draw_scene(2, "각자 1을 쓰려 함"))
+    frames.append(draw_scene(3, "한쪽 결과가 사라질 수 있음"))
+    frames.append(draw_scene(3, "한쪽 결과가 사라질 수 있음"))
+    frames.append(draw_scene(4, "락으로 critical section 보호"))
+    frames.append(draw_scene(4, "락으로 critical section 보호"))
+    save_gif("os-sync.gif", frames, theme, duration=650)
+
+
+def clip_os_deadlock(theme: Theme):
+    frames = []
+
+    def draw_scene(step, hint):
+        img, d = new_frame(theme)
+        d.text((PAD, PAD), "데드락: 서로 기다리며 멈춤", fill=theme.ink, font=F18)
+
+        rounded(d, (120, 120, 300, 200), theme, fill=theme.highlight if step >= 1 else theme.fill)
+        d.text((165, 140), "Skipper", fill=theme.ink, font=F14)
+        d.text((155, 168), "펜 보유" if step >= 1 else "대기", fill=theme.muted, font=F13)
+
+        rounded(d, (520, 120, 700, 200), theme, fill=theme.highlight if step >= 2 else theme.fill)
+        d.text((560, 140), "Kowalski", fill=theme.ink, font=F14)
+        d.text((555, 168), "노트 보유" if step >= 2 else "대기", fill=theme.muted, font=F13)
+
+        rounded(d, (120, 270, 300, 340), theme, fill=theme.fill)
+        d.text((155, 295), "노트 대기" if step >= 3 else "·", fill=theme.ink if step >= 3 else theme.muted, font=F14)
+
+        rounded(d, (520, 270, 700, 340), theme, fill=theme.fill)
+        d.text((560, 295), "펜 대기" if step >= 3 else "·", fill=theme.ink if step >= 3 else theme.muted, font=F14)
+
+        if step >= 1:
+            d.line((210, 200, 210, 270), fill=theme.line, width=2)
+        if step >= 2:
+            d.line((610, 200, 610, 270), fill=theme.line, width=2)
+        if step >= 3:
+            d.line((300, 160, 520, 160), fill=theme.orange, width=3)
+            d.polygon([(520, 160), (508, 154), (508, 166)], fill=theme.orange)
+            d.text((360, 130), "노트 원함", fill=theme.orange, font=F13)
+            d.line((520, 305, 300, 305), fill=theme.orange, width=3)
+            d.polygon([(300, 305), (312, 299), (312, 311)], fill=theme.orange)
+            d.text((370, 315), "펜 원함", fill=theme.orange, font=F13)
+
+        d.text((PAD, H - PAD - 8), hint, fill=theme.muted, font=F13)
+        return img
+
+    frames.append(draw_scene(0, "자원을 나누어 쓰기 전"))
+    frames.append(draw_scene(1, "Skipper가 펜을 듦"))
+    frames.append(draw_scene(2, "Kowalski가 노트를 듦"))
+    frames.append(draw_scene(2, "Kowalski가 노트를 듦"))
+    frames.append(draw_scene(3, "서로 상대 것을 기다림 → 데드락"))
+    frames.append(draw_scene(3, "서로 상대 것을 기다림 → 데드락"))
+    save_gif("os-deadlock.gif", frames, theme, duration=650)
+
+
+def clip_os_syscall(theme: Theme):
+    frames = []
+
+    def draw_scene(step, hint):
+        img, d = new_frame(theme)
+        d.text((PAD, PAD), "시스템 콜: 커널에 부탁한다", fill=theme.ink, font=F18)
+
+        rounded(d, (PAD, 130, 360, 250), theme, fill=theme.soft if step < 2 else theme.fill)
+        d.text((PAD + 100, 155), "User mode", fill=theme.ink, font=F14)
+        d.text((PAD + 110, 190), "App", fill=theme.muted, font=F16)
+        if step == 0:
+            d.text((PAD + 70, 220), "read() 호출", fill=theme.orange, font=F13)
+
+        rounded(d, (440, 130, 760, 250), theme, fill=theme.highlight if step >= 1 else theme.fill)
+        d.text((530, 155), "Kernel mode", fill=theme.ink, font=F14)
+        d.text((545, 190), "OS", fill=theme.muted, font=F16)
+        if step >= 1:
+            d.text((500, 220), "파일/디스크 처리", fill=theme.orange, font=F13)
+
+        if step >= 1:
+            d.line((370, 180, 430, 180), fill=theme.orange, width=3)
+            d.polygon([(430, 180), (418, 174), (418, 186)], fill=theme.orange)
+            d.text((375, 145), "syscall", fill=theme.orange, font=F13)
+        if step >= 2:
+            d.line((430, 210, 370, 210), fill=theme.accent, width=3)
+            d.polygon([(370, 210), (382, 204), (382, 216)], fill=theme.accent)
+            d.text((375, 220), "결과", fill=theme.accent, font=F13)
+
+        d.text((PAD, H - PAD - 8), hint, fill=theme.muted, font=F13)
+        return img
+
+    frames.append(draw_scene(0, "앱은 하드웨어를 직접 안 만진다"))
+    frames.append(draw_scene(0, "앱은 하드웨어를 직접 안 만진다"))
+    frames.append(draw_scene(1, "커널로 진입"))
+    frames.append(draw_scene(1, "커널로 진입"))
+    frames.append(draw_scene(2, "결과를 유저 모드로 반환"))
+    frames.append(draw_scene(2, "결과를 유저 모드로 반환"))
+    save_gif("os-syscall.gif", frames, theme, duration=650)
+
+
 CLIPS = [
     clip_array,
     clip_stack,
@@ -362,6 +765,15 @@ CLIPS = [
     clip_binary_search,
     clip_dfs_bfs,
     clip_two_pointer,
+    clip_net_dns,
+    clip_net_http,
+    clip_net_tcp,
+    clip_net_lb,
+    clip_os_schedule,
+    clip_os_pagefault,
+    clip_os_sync,
+    clip_os_deadlock,
+    clip_os_syscall,
 ]
 
 
