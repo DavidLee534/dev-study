@@ -44,6 +44,8 @@
 - 인증/인가 (Session, JWT, OAuth)
 - 캐싱, 메시징, 배치, 비동기 처리
 
+→ 교재형 노트: **[backend/](backend/README.md)** (Spring · NestJS · FastAPI 병렬 Ready)
+
 ### Database
 - PostgreSQL, MySQL, MongoDB, Redis
 - SQL / NoSQL 모델링
