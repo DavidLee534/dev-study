@@ -76,6 +76,8 @@
 - IDE / 디버깅 / 테스트 도구
 - 문서화, 코드 리뷰, 협업 프로세스
 
+→ 교재형 노트: **[tools/](tools/README.md)** (협업 Ready)
+
 ### Security / Quality
 - 웹 보안 기초 (XSS, CSRF, SQL Injection)
 - 입력 검증, 시크릿 관리
@@ -92,7 +94,7 @@ dev-study/
 ├── mobile/      # Android, iOS, RN, Flutter
 ├── infra/       # Docker, K8s, CI/CD, 클라우드
 ├── cs/          # 자료구조, OS, 네트워크, 설계
-├── tools/       # Git, IDE, 협업
+├── tools/       # Git, PR, 리뷰, 협업 교재
 └── security/    # 보안, 테스트, 품질
 ```
 
