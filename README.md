@@ -71,6 +71,13 @@
 
 → 교재형 노트: **[cs/](cs/README.md)**
 
+### AI / ML
+- 고전 ML 감각 (학습·평가·임베딩)
+- LLM, 프롬프트, RAG, 에이전트
+- 평가·비용·안전 운영 감각
+
+→ 교재형 노트: **[ai/](ai/README.md)** (ML · LLM Ready, Python 스니펫)
+
 ### Tools / Collaboration
 - Git, GitHub, PR 워크플로
 - IDE / 디버깅 / 테스트 도구
@@ -94,8 +101,10 @@ dev-study/
 ├── mobile/      # Android, iOS, RN, Flutter
 ├── infra/       # Docker, K8s, CI/CD, 클라우드
 ├── cs/          # 자료구조, OS, 네트워크, 설계
+├── ai/          # ML · LLM · RAG · 에이전트
 ├── tools/       # Git, PR, 리뷰, 협업 교재
 └── security/    # 보안, 테스트, 품질
+
 ```
 
 주제 안에서 필요하면 하위 폴더를 더 나눕니다.  
