@@ -7,37 +7,19 @@
 언어 / 프레임워크 / 인프라 / CS까지, 이해한 내용을 교재처럼 남깁니다.
 
 <p>
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="assets/badges/study-dark.svg" />
-    <img src="assets/badges/study.svg" alt="Dev Study" />
-  </picture>
+  <img src="https://img.shields.io/badge/Format-Study_Notes-0F172A?style=flat-square" alt="Study Notes" />
   &nbsp;
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="assets/badges/notes-dark.svg" />
-    <img src="assets/badges/notes.svg" alt="Study Notes" />
-  </picture>
+  <img src="https://img.shields.io/badge/Focus-Concepts_First-EA580C?style=flat-square" alt="Concepts First" />
   &nbsp;
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="assets/badges/concepts-dark.svg" />
-    <img src="assets/badges/concepts.svg" alt="Concepts First" />
-  </picture>
+  <img src="https://img.shields.io/badge/Track-Computer_Science-334155?style=flat-square" alt="Computer Science" />
 </p>
 
 <p>
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="assets/badges/java-dark.svg" />
-    <img src="assets/badges/java.svg" alt="Java" />
-  </picture>
+  <img src="https://img.shields.io/badge/Java-21-EA580C?style=flat-square" alt="Java" />
   &nbsp;
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="assets/badges/python-dark.svg" />
-    <img src="assets/badges/python.svg" alt="Python" />
-  </picture>
+  <img src="https://img.shields.io/badge/Python-3-16A34A?style=flat-square" alt="Python" />
   &nbsp;
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="assets/badges/cs-dark.svg" />
-    <img src="assets/badges/cs.svg" alt="Computer Science" />
-  </picture>
+  <img src="https://img.shields.io/badge/CS-Lecture_Notes-0F172A?style=flat-square" alt="CS Lecture Notes" />
 </p>
 
 </div>

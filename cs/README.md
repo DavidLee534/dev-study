@@ -10,20 +10,11 @@
 개념 → 직관 → 특징 → 쓰임 순서로 읽습니다.
 
 <p>
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="../assets/badges/notes-dark.svg" />
-    <img src="../assets/badges/notes.svg" alt="Study Notes" />
-  </picture>
+  <img src="https://img.shields.io/badge/Format-Lecture_Notes-0F172A?style=flat-square" alt="Lecture Notes" />
   &nbsp;
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="../assets/badges/cs-dark.svg" />
-    <img src="../assets/badges/cs.svg" alt="Computer Science" />
-  </picture>
+  <img src="https://img.shields.io/badge/Style-Light_Slate-334155?style=flat-square" alt="Light Slate" />
   &nbsp;
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="../assets/badges/concepts-dark.svg" />
-    <img src="../assets/badges/concepts.svg" alt="Concepts First" />
-  </picture>
+  <img src="https://img.shields.io/badge/Focus-Concepts_First-EA580C?style=flat-square" alt="Concepts First" />
 </p>
 
 </div>
@@ -53,7 +44,7 @@
 
 - **Lecture style**: 코드 실습집이 아니라 강의 교재처럼 읽는다.
 - **One chapter**: 주제당 md 하나.
-- **Same look**: GitHub 프로필과 같은 라이트 슬레이트 톤, `01.` 번호, 커스텀 배지.
+- **Same look**: GitHub 프로필과 같은 라이트 슬레이트 톤, `01.` 번호, flat badge.
 
 <br />
 

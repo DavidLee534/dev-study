@@ -14,8 +14,7 @@ alwaysApply: true
 - 보조: `#334155`, `#64748B`
 - 배경 그라데이션: `#F8FAFC` → `#FFFFFF`
 - 악센트 뱃지: `#EA580C`(Java/강조), `#16A34A`, `#2563EB`, `#334155`
-- 뱃지: 커스텀 SVG (`assets/badges/*.svg` + `*-dark.svg`), `<picture>`로 테마 분기
-- shields.io를 쓸 경우에도 flat-square 단색보다 label/value 투톤을 우선
+- 뱃지 스타일: `style=flat-square` (shields.io)
 - 섹션 헤더: 왼쪽 8px 네이비 바 + 굵은 제목 SVG (`assets/sections/`)
 
 ## 문서 골격
