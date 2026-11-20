@@ -691,7 +691,9 @@ def diagram_pattern_singleton(theme: Theme):
     for x, label in [(100, "A"), (340, "B"), (580, "C")]:
         box(d, (x, 260, x + 100, 310), theme, fill=theme.soft)
         center_text(d, x + 50, 282, label, F_BODY, theme.ink)
-        d.line((x + 50, 260, 390, 220), fill=theme.line, width=2)
+        # A/B/C → Config
+        d.line((x + 50, 260, 390, 226), fill=theme.line, width=2)
+        d.polygon([(390, 226), (382, 236), (398, 236)], fill=theme.line)
     d.text((PAD, 320), "모두가 같은 하나를 가리킨다", fill=theme.accent, font=F_HINT)
     save("pattern-singleton.png", img, theme)
 
