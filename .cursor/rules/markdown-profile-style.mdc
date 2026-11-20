@@ -1,0 +1,53 @@
+---
+description: GitHub 프로필과 동일한 라이트 디자인 컨셉으로 Markdown 작성
+globs: "**/*.md"
+alwaysApply: true
+---
+
+# Markdown Design (Profile Concept)
+
+프로필 README(`DavidLee534/DavidLee534`)와 같은 **라이트 슬레이트** 컨셉을 따른다.
+
+## 비주얼 토큰
+
+- 텍스트/강조: `#0F172A`
+- 보조: `#334155`, `#64748B`
+- 배경 그라데이션: `#F8FAFC` → `#FFFFFF`
+- 악센트 뱃지: `#EA580C`(Java/강조), `#16A34A`, `#2563EB`, `#334155`
+- 뱃지 스타일: `style=flat-square` (shields.io)
+- 섹션 헤더: 왼쪽 8px 네이비 바 + 굵은 제목 SVG (`assets/sections/`)
+
+## 문서 골격
+
+1. 상단 `div align="center"` 히어로 (배너 SVG 또는 짧은 타이틀 + **한 줄 가치 제안**)
+2. 상태/주제 뱃지
+3. `<br />` 후 섹션 SVG
+4. 본문은 `### 01. 제목` 번호 체계 (프로필 프로젝트와 동일)
+5. 항목은 `- **Label**: 설명` 형태를 우선
+6. 표는 `| :--- | :--- |` 좌측 정렬
+7. 장은 Summary / Next로 마무리
+
+## 다이어그램과 짧은 영상
+
+- 정적 도식: `assets/diagrams/*.png` (한글은 Malgun 등으로 렌더한 PNG 우선)
+- 동작 설명(스택/큐/해시/배열 접근 등): `assets/videos/*.gif` 만 넣고 **같은 절에 정적 이미지는 중복으로 넣지 않는다**
+- 라이트 톤: 흰 배경, `#0F172A` 선/글자, `#F8FAFC` 박스, 필요 시 `#EA580C` 악센트
+- 다크 톤: `#0B1220` 배경, `#E2E8F0` 선/글자, `#1E293B` 박스, `#FB923C` 악센트 → 파일명 `*-dark.png|gif|svg`
+- GitHub 테마 대응: `<picture>` + `prefers-color-scheme: dark` 로 라이트/다크 분기
+- 박스 안 이름은 길면 영문(Skipper 등), 제목/설명은 한글
+- 도식/설명 애니메이션은 AI cinematic video보다 **직접 만든 GIF/PNG**를 쓴다
+
+## 금지
+
+- 다크 네온/퍼플 글로우 톤
+- 이모지 장식 남발
+- 카드형 그림자/둥근 pill 남발
+- 코드 실습 중심으로 CS 교재를 쓰지 말 것 (개념 교재는 설명 우선)
+
+## 섹션 SVG 사용 예
+
+```html
+<img src="../assets/sections/section-goals.svg" width="100%" alt="Learning Goals" />
+```
+
+경로는 파일 위치에 맞게 조정한다. 새 섹션이 필요하면 동일 SVG 템플릿(왼쪽 `#0F172A` 바 + `#0F172A` 제목)으로 `assets/sections/`에 추가한다.
