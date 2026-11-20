@@ -1,9 +1,48 @@
+<div align="center">
+
 # Dev Study
 
-개발(Development)과 관련된 공부 내용을 정리해 두는 저장소입니다.
+**개발 공부 노트를 주제별로 정리하는 저장소**
 
-언어, 프레임워크, 인프라, CS 기초까지  
-학습한 개념과 문제 해결 과정, 코드 예시를 남깁니다.
+언어 / 프레임워크 / 인프라 / CS까지, 이해한 내용을 교재처럼 남깁니다.
+
+<p>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/badges/study-dark.svg" />
+    <img src="assets/badges/study.svg" alt="Dev Study" />
+  </picture>
+  &nbsp;
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/badges/notes-dark.svg" />
+    <img src="assets/badges/notes.svg" alt="Study Notes" />
+  </picture>
+  &nbsp;
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/badges/concepts-dark.svg" />
+    <img src="assets/badges/concepts.svg" alt="Concepts First" />
+  </picture>
+</p>
+
+<p>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/badges/java-dark.svg" />
+    <img src="assets/badges/java.svg" alt="Java" />
+  </picture>
+  &nbsp;
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/badges/python-dark.svg" />
+    <img src="assets/badges/python.svg" alt="Python" />
+  </picture>
+  &nbsp;
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/badges/cs-dark.svg" />
+    <img src="assets/badges/cs.svg" alt="Computer Science" />
+  </picture>
+</p>
+
+</div>
+
+<br />
 
 ## 공부 범위
 
@@ -20,7 +59,7 @@
 ### Backend
 - Spring Boot, Node.js, NestJS, FastAPI, Django, Express
 - REST / GraphQL API 설계
-- 인증·인가 (Session, JWT, OAuth)
+- 인증/인가 (Session, JWT, OAuth)
 - 캐싱, 메시징, 배치, 비동기 처리
 
 ### Database
@@ -45,6 +84,8 @@
 - 운영체제, 네트워크, HTTP
 - 데이터베이스 이론
 - 소프트웨어 공학, 설계 패턴, 클린 코드
+
+→ 교재형 노트: **[cs/](cs/README.md)**
 
 ### Tools / Collaboration
 - Git, GitHub, PR 워크플로
@@ -72,7 +113,7 @@ dev-study/
 ```
 
 주제 안에서 필요하면 하위 폴더를 더 나눕니다.  
-예: `language/typescript/`, `cs/algorithms/`
+예: `language/python/`, `cs/01_자료구조.md`
 
 ## 이 저장소를 쓰는 방식
 

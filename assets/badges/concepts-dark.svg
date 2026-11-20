@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="173" height="28" role="img" aria-label="Focus: Concepts First">
+  <title>Focus: Concepts First</title>
+  <g shape-rendering="crispEdges">
+    <rect x="0" y="0" width="53" height="28" fill="#1E293B"/>
+    <rect x="53" y="0" width="120" height="28" fill="#60A5FA"/>
+  </g>
+  <g font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700">
+    <text x="26.6" y="18" fill="#E2E8F0" text-anchor="middle">Focus</text>
+    <text x="113.3" y="18" fill="#0B1220" text-anchor="middle">Concepts First</text>
+  </g>
+</svg>

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="144" height="28" role="img" aria-label="Topic: Algorithms">
+  <title>Topic: Algorithms</title>
+  <g shape-rendering="crispEdges">
+    <rect x="0" y="0" width="53" height="28" fill="#0F172A"/>
+    <rect x="53" y="0" width="90" height="28" fill="#334155"/>
+  </g>
+  <g font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700">
+    <text x="26.6" y="18" fill="#F8FAFC" text-anchor="middle">Topic</text>
+    <text x="98.4" y="18" fill="#FFFFFF" text-anchor="middle">Algorithms</text>
+  </g>
+</svg>
