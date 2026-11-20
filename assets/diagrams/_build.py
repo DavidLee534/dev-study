@@ -554,6 +554,221 @@ def diagram_net_lb(theme: Theme):
     save("net-lb.png", img, theme)
 
 
+def diagram_db_keys(theme: Theme):
+    img, d = canvas(860, 400, theme)
+    d.text((PAD, PAD), "관계형: PK와 FK", fill=theme.ink, font=F_TITLE)
+
+    box(d, (PAD, 110, 360, 300), theme, fill=theme.soft)
+    d.text((PAD + 20, 125), "users", fill=theme.ink, font=F_BODY)
+    headers = [("id PK", True), ("name", False)]
+    for i, (h, pk) in enumerate(headers):
+        x = PAD + 20 + i * 140
+        fill = theme.highlight if pk else theme.fill
+        box(d, (x, 170, x + 120, 210), theme, fill=fill)
+        center_text(d, x + 60, 188, h, F_SMALL, theme.ink)
+    box(d, (PAD + 20, 230, PAD + 140, 270), theme, fill=theme.fill)
+    center_text(d, PAD + 80, 248, "1", F_BODY, theme.ink)
+    box(d, (PAD + 160, 230, PAD + 280, 270), theme, fill=theme.fill)
+    center_text(d, PAD + 220, 248, "Skipper", F_SMALL, theme.ink)
+
+    box(d, (480, 110, 820, 300), theme, fill=theme.soft)
+    d.text((500, 125), "orders", fill=theme.ink, font=F_BODY)
+    for i, (h, fk) in enumerate([("id PK", False), ("user_id FK", True)]):
+        x = 500 + i * 150
+        fill = theme.highlight if fk else theme.fill
+        box(d, (x, 170, x + 130, 210), theme, fill=fill)
+        center_text(d, x + 65, 188, h, F_SMALL, theme.ink)
+    box(d, (500, 230, 630, 270), theme, fill=theme.fill)
+    center_text(d, 565, 248, "10", F_BODY, theme.ink)
+    box(d, (650, 230, 780, 270), theme, fill=theme.highlight)
+    center_text(d, 715, 248, "1", F_BODY, theme.ink)
+
+    # FK(orders) → PK(users)
+    d.line((470, 250, 370, 250), fill=theme.orange, width=3)
+    d.polygon([(370, 250), (382, 244), (382, 256)], fill=theme.orange)
+    d.text((380, 220), "FK → PK", fill=theme.orange, font=F_SMALL)
+    d.text((PAD, 340), "FK는 다른 표의 PK를 가리킨다", fill=theme.accent, font=F_HINT)
+    save("db-keys.png", img, theme)
+
+
+def diagram_db_normalize(theme: Theme):
+    img, d = canvas(860, 420, theme)
+    d.text((PAD, PAD), "정규화: 중복을 표로 분리", fill=theme.ink, font=F_TITLE)
+
+    d.text((PAD, 100), "Before", fill=theme.muted, font=F_SMALL)
+    box(d, (PAD, 125, 400, 250), theme, fill=theme.fill)
+    d.text((PAD + 16, 140), "order + address 한 줄에 반복", fill=theme.ink, font=F_SMALL)
+    d.text((PAD + 16, 175), "10 | Skipper | Seoul", fill=theme.muted, font=F_SMALL)
+    d.text((PAD + 16, 205), "11 | Skipper | Seoul", fill=theme.muted, font=F_SMALL)
+    d.text((PAD + 16, 235), "주소 바뀌면 여러 줄 수정", fill=theme.orange, font=F_SMALL)
+
+    d.line((420, 190, 470, 190), fill=theme.ink, width=2)
+    d.polygon([(470, 190), (458, 184), (458, 196)], fill=theme.ink)
+
+    d.text((490, 100), "After", fill=theme.muted, font=F_SMALL)
+    box(d, (490, 125, 800, 185), theme, fill=theme.soft)
+    center_text(d, 645, 145, "users: 1 Skipper Seoul", F_SMALL, theme.ink)
+    box(d, (490, 205, 800, 280), theme, fill=theme.highlight)
+    d.text((510, 220), "orders: 10 → user 1", fill=theme.ink, font=F_SMALL)
+    d.text((510, 248), "orders: 11 → user 1", fill=theme.ink, font=F_SMALL)
+
+    d.text((PAD, 340), "한 곳만 고치면 전체가 맞는다", fill=theme.accent, font=F_HINT)
+    save("db-normalize.png", img, theme)
+
+
+def diagram_db_join(theme: Theme):
+    img, d = canvas(860, 380, theme)
+    d.text((PAD, PAD), "조인: 표를 조건으로 이어 붙임", fill=theme.ink, font=F_TITLE)
+
+    box(d, (PAD, 120, 280, 260), theme, fill=theme.soft)
+    center_text(d, 168, 150, "users", F_BODY, theme.ink)
+    d.text((PAD + 30, 190), "1 Skipper", fill=theme.muted, font=F_SMALL)
+    d.text((PAD + 30, 220), "2 Kowalski", fill=theme.muted, font=F_SMALL)
+
+    box(d, (320, 120, 540, 260), theme, fill=theme.soft)
+    center_text(d, 430, 150, "orders", F_BODY, theme.ink)
+    d.text((340, 190), "10 → 1", fill=theme.muted, font=F_SMALL)
+    d.text((340, 220), "11 → 1", fill=theme.muted, font=F_SMALL)
+
+    d.line((550, 190, 600, 190), fill=theme.ink, width=2)
+    d.polygon([(600, 190), (588, 184), (588, 196)], fill=theme.ink)
+
+    box(d, (610, 120, 820, 260), theme, fill=theme.highlight)
+    center_text(d, 715, 150, "결과", F_BODY, theme.ink)
+    d.text((630, 190), "10 Skipper", fill=theme.ink, font=F_SMALL)
+    d.text((630, 220), "11 Skipper", fill=theme.ink, font=F_SMALL)
+
+    d.text((PAD, 310), "user_id = id 로 맞춘다. 양이 크면 비용이 난다", fill=theme.accent, font=F_HINT)
+    save("db-join.png", img, theme)
+
+
+def diagram_db_nosql(theme: Theme):
+    img, d = canvas(860, 400, theme)
+    d.text((PAD, PAD), "관계형 vs NoSQL 모양", fill=theme.ink, font=F_TITLE)
+
+    box(d, (PAD, 110, 380, 300), theme, fill=theme.soft)
+    center_text(d, 218, 140, "Relational", F_BODY, theme.ink)
+    d.text((PAD + 30, 180), "표 · 행 · 조인", fill=theme.muted, font=F_SMALL)
+    d.text((PAD + 30, 215), "강한 스키마 · ACID", fill=theme.muted, font=F_SMALL)
+    d.text((PAD + 30, 250), "복잡한 관계에 강함", fill=theme.ink, font=F_SMALL)
+
+    box(d, (460, 110, 800, 300), theme, fill=theme.highlight)
+    center_text(d, 630, 140, "NoSQL 예", F_BODY, theme.ink)
+    d.text((480, 180), "Document: JSON 한 덩어리", fill=theme.ink, font=F_SMALL)
+    d.text((480, 215), "Key-Value: 키로 바로 조회", fill=theme.ink, font=F_SMALL)
+    d.text((480, 250), "유연한 스키마 · 확장 패턴", fill=theme.muted, font=F_SMALL)
+
+    d.text((PAD, 340), "데이터 모양과 접근 패턴에 맞는 도구를 고른다", fill=theme.accent, font=F_HINT)
+    save("db-nosql.png", img, theme)
+
+
+def diagram_pattern_solid(theme: Theme):
+    img, d = canvas(860, 420, theme)
+    d.text((PAD, PAD), "SOLID: 바꾸기 쉬운 역할 나누기", fill=theme.ink, font=F_TITLE)
+    items = [
+        ("S", "한 가지 이유로 변경"),
+        ("O", "확장에 열고 수정에 닫기"),
+        ("L", "하위 타입 교체 가능"),
+        ("I", "얇은 인터페이스"),
+        ("D", "추상에 의존"),
+    ]
+    for i, (letter, desc) in enumerate(items):
+        y = 100 + i * 52
+        box(d, (PAD, y, PAD + 70, y + 40), theme, fill=theme.highlight)
+        center_text(d, PAD + 35, y + 18, letter, F_BODY, theme.ink)
+        box(d, (PAD + 90, y, 780, y + 40), theme, fill=theme.fill)
+        d.text((PAD + 110, y + 10), desc, fill=theme.ink, font=F_SMALL)
+    d.text((PAD, 375), "암기보다 ‘어디를 고치면 무엇이 깨지나’", fill=theme.accent, font=F_HINT)
+    save("pattern-solid.png", img, theme)
+
+
+def diagram_pattern_singleton(theme: Theme):
+    img, d = canvas(780, 360, theme)
+    d.text((PAD, PAD), "Singleton: 인스턴스 하나", fill=theme.ink, font=F_TITLE)
+    box(d, (280, 120, 500, 220), theme, fill=theme.highlight)
+    center_text(d, 390, 155, "Config", F_BODY, theme.ink)
+    center_text(d, 390, 185, "유일한 인스턴스", F_SMALL, theme.muted)
+    for x, label in [(100, "A"), (340, "B"), (580, "C")]:
+        box(d, (x, 260, x + 100, 310), theme, fill=theme.soft)
+        center_text(d, x + 50, 282, label, F_BODY, theme.ink)
+        d.line((x + 50, 260, 390, 220), fill=theme.line, width=2)
+    d.text((PAD, 320), "모두가 같은 하나를 가리킨다", fill=theme.accent, font=F_HINT)
+    save("pattern-singleton.png", img, theme)
+
+
+def diagram_pattern_factory(theme: Theme):
+    img, d = canvas(820, 360, theme)
+    d.text((PAD, PAD), "Factory: 생성 책임을 분리", fill=theme.ink, font=F_TITLE)
+    box(d, (PAD, 140, 220, 240), theme, fill=theme.soft)
+    center_text(d, 138, 180, "Client", F_BODY, theme.ink)
+    d.line((230, 190, 300, 190), fill=theme.ink, width=2)
+    d.polygon([(300, 190), (288, 184), (288, 196)], fill=theme.ink)
+    box(d, (310, 140, 510, 240), theme, fill=theme.highlight)
+    center_text(d, 410, 170, "Factory", F_BODY, theme.ink)
+    center_text(d, 410, 200, "create()", F_SMALL, theme.muted)
+    d.line((520, 190, 590, 190), fill=theme.ink, width=2)
+    d.polygon([(590, 190), (578, 184), (578, 196)], fill=theme.ink)
+    box(d, (600, 140, 780, 240), theme, fill=theme.fill)
+    center_text(d, 690, 180, "Product", F_BODY, theme.ink)
+    d.text((PAD, 290), "호출부는 new 세부 조건을 몰라도 된다", fill=theme.accent, font=F_HINT)
+    save("pattern-factory.png", img, theme)
+
+
+def diagram_pattern_adapter(theme: Theme):
+    img, d = canvas(820, 360, theme)
+    d.text((PAD, PAD), "Adapter: 입구를 맞춰 연결", fill=theme.ink, font=F_TITLE)
+    box(d, (PAD, 140, 240, 240), theme, fill=theme.soft)
+    center_text(d, 148, 170, "Our API", F_BODY, theme.ink)
+    center_text(d, 148, 200, "pay()", F_SMALL, theme.muted)
+    d.line((250, 190, 320, 190), fill=theme.ink, width=2)
+    d.polygon([(320, 190), (308, 184), (308, 196)], fill=theme.ink)
+    box(d, (330, 140, 520, 240), theme, fill=theme.highlight)
+    center_text(d, 425, 170, "Adapter", F_BODY, theme.ink)
+    center_text(d, 425, 200, "번역", F_SMALL, theme.muted)
+    d.line((530, 190, 600, 190), fill=theme.ink, width=2)
+    d.polygon([(600, 190), (588, 184), (588, 196)], fill=theme.ink)
+    box(d, (610, 140, 800, 240), theme, fill=theme.fill)
+    center_text(d, 705, 170, "Legacy SDK", F_BODY, theme.ink)
+    center_text(d, 705, 200, "charge()", F_SMALL, theme.muted)
+    d.text((PAD, 290), "기존 것을 바꾸지 않고 인터페이스만 맞춤", fill=theme.accent, font=F_HINT)
+    save("pattern-adapter.png", img, theme)
+
+
+def diagram_pattern_decorator(theme: Theme):
+    img, d = canvas(820, 400, theme)
+    d.text((PAD, PAD), "Decorator: 감싸서 기능 추가", fill=theme.ink, font=F_TITLE)
+    layers = [
+        (200, "Logging", theme.highlight),
+        (280, "Auth", theme.soft),
+        (360, "Handler", theme.fill),
+    ]
+    for y, label, fill in layers:
+        box(d, (220, y - 40, 580, y + 20), theme, fill=fill)
+        center_text(d, 400, y - 12, label, F_BODY, theme.ink)
+    d.text((PAD, 330), "같은 인터페이스를 유지한 채 겹겹이 확장", fill=theme.accent, font=F_HINT)
+    save("pattern-decorator.png", img, theme)
+
+
+def diagram_pattern_mvc(theme: Theme):
+    img, d = canvas(860, 380, theme)
+    d.text((PAD, PAD), "MVC / 계층: 역할을 나눔", fill=theme.ink, font=F_TITLE)
+    cols = [
+        (PAD, "Controller", "요청·응답", theme.soft),
+        (310, "Service", "업무 규칙", theme.highlight),
+        (560, "Repository", "저장", theme.fill),
+    ]
+    for x, title, desc, fill in cols:
+        box(d, (x, 130, x + 220, 260), theme, fill=fill)
+        center_text(d, x + 110, 175, title, F_BODY, theme.ink)
+        center_text(d, x + 110, 215, desc, F_SMALL, theme.muted)
+    d.line((270, 195, 300, 195), fill=theme.ink, width=2)
+    d.polygon([(300, 195), (288, 189), (288, 201)], fill=theme.ink)
+    d.line((530, 195, 560, 195), fill=theme.ink, width=2)
+    d.polygon([(560, 195), (548, 189), (548, 201)], fill=theme.ink)
+    d.text((PAD, 310), "한쪽 변화가 전체에 덜 번지게", fill=theme.accent, font=F_HINT)
+    save("pattern-mvc.png", img, theme)
+
+
 ALL = [
     diagram_array,
     diagram_linked,
@@ -576,6 +791,16 @@ ALL = [
     diagram_net_dns_port,
     diagram_net_http,
     diagram_net_lb,
+    diagram_db_keys,
+    diagram_db_normalize,
+    diagram_db_join,
+    diagram_db_nosql,
+    diagram_pattern_solid,
+    diagram_pattern_singleton,
+    diagram_pattern_factory,
+    diagram_pattern_adapter,
+    diagram_pattern_decorator,
+    diagram_pattern_mvc,
 ]
 
 

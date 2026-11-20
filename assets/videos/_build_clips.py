@@ -757,6 +757,209 @@ def clip_os_syscall(theme: Theme):
     save_gif("os-syscall.gif", frames, theme, duration=650)
 
 
+def clip_db_index(theme: Theme):
+    frames = []
+    rows = ["A", "B", "C", "D", "E"]
+
+    def draw_scene(mode, highlight=None, hint=""):
+        img, d = new_frame(theme)
+        d.text((PAD, PAD), "인덱스: 색인으로 찾기", fill=theme.ink, font=F18)
+
+        d.text((PAD, 110), "테이블", fill=theme.muted, font=F13)
+        for i, r in enumerate(rows):
+            x = PAD + i * 70
+            fill = theme.highlight if highlight == i else theme.fill
+            rounded(d, (x, 140, x + 58, 190), theme, fill=fill)
+            tw = d.textlength(r, font=F14)
+            d.text((x + (58 - tw) / 2, 158), r, fill=theme.ink, font=F14)
+
+        if mode == "scan":
+            d.text((PAD, 230), "Full scan: 한 칸씩 확인", fill=theme.orange, font=F14)
+        else:
+            rounded(d, (PAD, 230, 280, 290), theme, fill=theme.soft)
+            d.text((PAD + 20, 245), "Index", fill=theme.ink, font=F14)
+            d.text((PAD + 20, 268), "C → 쪽수 3", fill=theme.muted, font=F13)
+            d.line((290, 260, 360, 165), fill=theme.orange, width=3)
+            d.polygon([(360, 165), (348, 168), (355, 176)], fill=theme.orange)
+
+        d.text((PAD, H - PAD - 8), hint, fill=theme.muted, font=F13)
+        return img
+
+    frames.append(draw_scene("scan", 0, "처음부터 훑기"))
+    frames.append(draw_scene("scan", 1, "아직 아님"))
+    frames.append(draw_scene("scan", 2, "찾음 (느릴 수 있음)"))
+    frames.append(draw_scene("scan", 2, "찾음 (느릴 수 있음)"))
+    frames.append(draw_scene("index", 2, "색인으로 바로 이동"))
+    frames.append(draw_scene("index", 2, "색인으로 바로 이동"))
+    save_gif("db-index.gif", frames, theme, duration=550)
+
+
+def clip_db_transaction(theme: Theme):
+    frames = []
+    # 0 시작 → 1 A만 차감 → 2 실패 롤백 → 3 재시도 A → 4 B 반영 → 5 커밋
+    scenes = [
+        ("100", "50", None, "이체 시작 전", False, False),
+        ("70", "50", "−30", "A만 차감 (아직 미완료)", True, False),
+        ("100", "50", "ROLLBACK", "실패 → 전부 원상복구", False, False),
+        ("70", "50", "−30", "다시 시도: A 차감", True, False),
+        ("70", "80", "+30", "B에도 반영", True, True),
+        ("70", "80", "COMMIT", "성공 → 커밋으로 확정", True, True),
+    ]
+
+    def draw_scene(a_val, b_val, mid, hint, a_on, b_on):
+        img, d = new_frame(theme)
+        d.text((PAD, PAD), "트랜잭션: 커밋 / 롤백", fill=theme.ink, font=F18)
+
+        rounded(d, (PAD, 140, 300, 240), theme, fill=theme.highlight if a_on else theme.fill)
+        d.text((PAD + 90, 160), "Account A", fill=theme.ink, font=F14)
+        d.text((PAD + 110, 195), a_val, fill=theme.ink, font=F18)
+
+        rounded(d, (500, 140, 760, 240), theme, fill=theme.highlight if b_on else theme.fill)
+        d.text((560, 160), "Account B", fill=theme.ink, font=F14)
+        d.text((590, 195), b_val, fill=theme.ink, font=F18)
+
+        if mid:
+            color = theme.accent if mid == "COMMIT" else theme.orange
+            d.text((310, 175), mid, fill=color, font=F16)
+            if mid == "COMMIT":
+                d.line((310, 210, 490, 210), fill=theme.accent, width=3)
+
+        d.text((PAD, H - PAD - 8), hint, fill=theme.muted, font=F13)
+        return img
+
+    for a_val, b_val, mid, hint, a_on, b_on in scenes:
+        frames.append(draw_scene(a_val, b_val, mid, hint, a_on, b_on))
+        frames.append(draw_scene(a_val, b_val, mid, hint, a_on, b_on))
+    save_gif("db-transaction.gif", frames, theme, duration=550)
+
+
+def clip_pattern_strategy(theme: Theme):
+    frames = []
+    strategies = ["최단", "최소 요금", "고속도로 회피"]
+
+    def draw_scene(idx, hint):
+        img, d = new_frame(theme)
+        d.text((PAD, PAD), "Strategy: 행동만 교체", fill=theme.ink, font=F18)
+        rounded(d, (PAD, 130, 280, 230), theme, fill=theme.soft)
+        d.text((PAD + 70, 160), "Navigator", fill=theme.ink, font=F14)
+        d.text((PAD + 55, 190), "findRoute()", fill=theme.muted, font=F13)
+        d.line((290, 180, 360, 180), fill=theme.ink, width=2)
+        d.polygon([(360, 180), (348, 174), (348, 186)], fill=theme.ink)
+        for i, name in enumerate(strategies):
+            y = 120 + i * 70
+            fill = theme.highlight if i == idx else theme.fill
+            rounded(d, (380, y, 720, y + 55), theme, fill=fill)
+            d.text((420, y + 16), name, fill=theme.ink, font=F14)
+        d.text((PAD, H - PAD - 8), hint, fill=theme.muted, font=F13)
+        return img
+
+    for i, name in enumerate(strategies):
+        frames.append(draw_scene(i, f"전략 → {name}"))
+        frames.append(draw_scene(i, f"전략 → {name}"))
+    save_gif("pattern-strategy.gif", frames, theme, duration=600)
+
+
+def clip_pattern_observer(theme: Theme):
+    frames = []
+
+    def draw_scene(step, hint):
+        img, d = new_frame(theme)
+        d.text((PAD, PAD), "Observer: 사건을 알림", fill=theme.ink, font=F18)
+        rounded(d, (300, 110, 500, 190), theme, fill=theme.highlight if step >= 1 else theme.fill)
+        d.text((355, 135), "Subject", fill=theme.ink, font=F14)
+        d.text((340, 160), "upload()" if step >= 1 else "대기", fill=theme.orange if step >= 1 else theme.muted, font=F13)
+
+        subs = [("Sub A", 100), ("Sub B", 320), ("Sub C", 540)]
+        for i, (name, x) in enumerate(subs):
+            active = step >= 2
+            rounded(d, (x, 260, x + 160, 340), theme, fill=theme.highlight if active else theme.soft)
+            d.text((x + 45, 285), name, fill=theme.ink, font=F14)
+            d.text((x + 35, 310), "알림!" if active else "구독", fill=theme.orange if active else theme.muted, font=F13)
+            if step >= 2:
+                d.line((400, 190, x + 80, 260), fill=theme.orange, width=2)
+
+        d.text((PAD, H - PAD - 8), hint, fill=theme.muted, font=F13)
+        return img
+
+    frames.append(draw_scene(0, "구독자들이 등록됨"))
+    frames.append(draw_scene(1, "사건 발생"))
+    frames.append(draw_scene(1, "사건 발생"))
+    frames.append(draw_scene(2, "모두에게 알림"))
+    frames.append(draw_scene(2, "모두에게 알림"))
+    save_gif("pattern-observer.gif", frames, theme, duration=600)
+
+
+def clip_db_isolation(theme: Theme):
+    frames = []
+
+    def draw_scene(step, hint):
+        img, d = new_frame(theme)
+        d.text((PAD, PAD), "격리: 커밋 전 값을 볼까?", fill=theme.ink, font=F18)
+
+        bal = ["100", "100", "70", "100"][step]
+        rounded(d, (300, 120, 500, 200), theme, fill=theme.highlight if step >= 2 else theme.fill)
+        d.text((355, 140), "잔액", fill=theme.muted, font=F13)
+        tw = d.textlength(bal, font=F18)
+        d.text((400 - tw / 2, 165), bal, fill=theme.ink, font=F18)
+
+        rounded(d, (PAD, 240, 280, 330), theme, fill=theme.soft)
+        d.text((PAD + 70, 260), "Tx A", fill=theme.ink, font=F14)
+        a = ["읽기 100", "−30 미커밋", "−30 미커밋", "롤백"][step]
+        d.text((PAD + 40, 295), a, fill=theme.orange, font=F13)
+
+        rounded(d, (520, 240, 760, 330), theme, fill=theme.soft)
+        d.text((590, 260), "Tx B", fill=theme.ink, font=F14)
+        b = ["대기", "대기", "70 읽음?", "다시 100"][step]
+        d.text((560, 295), b, fill=theme.orange if step == 2 else theme.muted, font=F13)
+
+        d.text((PAD, H - PAD - 8), hint, fill=theme.muted, font=F13)
+        return img
+
+    frames.append(draw_scene(0, "둘 다 시작"))
+    frames.append(draw_scene(1, "A가 아직 커밋 전"))
+    frames.append(draw_scene(1, "A가 아직 커밋 전"))
+    frames.append(draw_scene(2, "Dirty read: B가 미커밋 값을 봄"))
+    frames.append(draw_scene(2, "Dirty read: B가 미커밋 값을 봄"))
+    frames.append(draw_scene(3, "높은 격리는 이런 읽기를 막는다"))
+    frames.append(draw_scene(3, "높은 격리는 이런 읽기를 막는다"))
+    save_gif("db-isolation.gif", frames, theme, duration=650)
+
+
+def clip_db_lock(theme: Theme):
+    frames = []
+
+    def draw_scene(step, hint):
+        img, d = new_frame(theme)
+        d.text((PAD, PAD), "락: 같은 행을 동시에 못 고침", fill=theme.ink, font=F18)
+
+        rounded(d, (300, 120, 500, 200), theme, fill=theme.highlight if step >= 1 else theme.fill)
+        d.text((355, 145), "row #42", fill=theme.ink, font=F16)
+        lock = ["UNLOCKED", "LOCKED", "LOCKED", "UNLOCKED"][step]
+        d.text((340, 175), lock, fill=theme.orange if step in (1, 2) else theme.muted, font=F13)
+
+        rounded(d, (PAD, 240, 280, 330), theme, fill=theme.soft)
+        d.text((PAD + 70, 260), "Tx A", fill=theme.ink, font=F14)
+        a = ["요청", "락 획득", "수정 중", "커밋·해제"][step]
+        d.text((PAD + 55, 295), a, fill=theme.orange if step in (1, 2) else theme.muted, font=F13)
+
+        rounded(d, (520, 240, 760, 330), theme, fill=theme.soft)
+        d.text((590, 260), "Tx B", fill=theme.ink, font=F14)
+        b = ["대기", "대기", "락 대기…", "이어서 수정"][step]
+        d.text((560, 295), b, fill=theme.orange if step == 2 else theme.muted, font=F13)
+
+        d.text((PAD, H - PAD - 8), hint, fill=theme.muted, font=F13)
+        return img
+
+    frames.append(draw_scene(0, "같은 행을 둘 다 쓰려 함"))
+    frames.append(draw_scene(1, "먼저 온 A가 락"))
+    frames.append(draw_scene(1, "먼저 온 A가 락"))
+    frames.append(draw_scene(2, "B는 대기"))
+    frames.append(draw_scene(2, "B는 대기"))
+    frames.append(draw_scene(3, "A가 끝나면 B 진행"))
+    frames.append(draw_scene(3, "A가 끝나면 B 진행"))
+    save_gif("db-lock.gif", frames, theme, duration=600)
+
+
 CLIPS = [
     clip_array,
     clip_stack,
@@ -774,6 +977,12 @@ CLIPS = [
     clip_os_sync,
     clip_os_deadlock,
     clip_os_syscall,
+    clip_db_index,
+    clip_db_transaction,
+    clip_db_isolation,
+    clip_db_lock,
+    clip_pattern_strategy,
+    clip_pattern_observer,
 ]
 
 
