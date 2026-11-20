@@ -369,6 +369,92 @@ def diagram_sort(theme: Theme):
     save("algo-sort.png", img, theme)
 
 
+def diagram_os_process_thread(theme: Theme):
+    img, d = canvas(860, 420, theme)
+    d.text((PAD, PAD), "프로세스 vs 스레드", fill=theme.ink, font=F_TITLE)
+
+    # Process A
+    box(d, (PAD, 100, 390, 300), theme, fill=theme.soft, outline=theme.line, width=2, radius=12)
+    d.text((PAD + 18, 112), "Process A", fill=theme.ink, font=F_BODY)
+    d.text((PAD + 18, 142), "자체 메모리 공간", fill=theme.muted, font=F_SMALL)
+    for i, label in enumerate(["Thread 1", "Thread 2"]):
+        x = PAD + 30 + i * 150
+        box(d, (x, 190, x + 130, 250), theme, fill=theme.highlight if i == 0 else theme.fill)
+        center_text(d, x + 65, 218, label, F_SMALL, theme.ink)
+    d.text((PAD + 30, 268), "스레드는 메모리 공유", fill=theme.accent, font=F_SMALL)
+
+    # Process B
+    box(d, (450, 100, 800, 300), theme, fill=theme.soft, outline=theme.line, width=2, radius=12)
+    d.text((468, 112), "Process B", fill=theme.ink, font=F_BODY)
+    d.text((468, 142), "격리된 주소 공간", fill=theme.muted, font=F_SMALL)
+    box(d, (500, 190, 750, 250), theme, fill=theme.fill)
+    center_text(d, 625, 218, "Thread 1", F_SMALL, theme.ink)
+    d.text((500, 268), "프로세스는 서로 분리", fill=theme.accent, font=F_SMALL)
+
+    d.text((PAD, 340), "상자 = 프로세스, 상자 안 일꾼 = 스레드", fill=theme.accent, font=F_HINT)
+    d.text((PAD, 372), "같은 상자 안에서는 공유, 다른 상자와는 격리", fill=theme.muted, font=F_SMALL)
+    save("os-process-thread.png", img, theme)
+
+
+def diagram_os_memory_layout(theme: Theme):
+    img, d = canvas(720, 480, theme)
+    d.text((PAD, PAD), "프로세스 메모리 레이아웃", fill=theme.ink, font=F_TITLE)
+
+    regions = [
+        ("Stack", "함수 호출 · 지역 변수", theme.highlight, "↑ 성장"),
+        ("Heap", "동적 할당 (new / malloc)", theme.fill, "↓ 성장"),
+        ("Data / BSS", "전역 · 정적 변수", theme.soft, ""),
+        ("Text (Code)", "실행 코드", theme.fill, ""),
+    ]
+    x0, y0, bw, bh = 180, 100, 320, 70
+    for i, (title, desc, fill, growth) in enumerate(regions):
+        y = y0 + i * (bh + 12)
+        box(d, (x0, y, x0 + bw, y + bh), theme, fill=fill)
+        d.text((x0 + 18, y + 14), title, fill=theme.ink, font=F_BODY)
+        d.text((x0 + 18, y + 40), desc, fill=theme.muted, font=F_SMALL)
+        if growth:
+            d.text((x0 + bw + 16, y + 24), growth, fill=theme.orange, font=F_SMALL)
+
+    d.text((PAD, 420), "높은 주소 ↔ 낮은 주소. 스택과 힙이 가운데로 자란다", fill=theme.accent, font=F_HINT)
+    save("os-memory-layout.png", img, theme)
+
+
+def diagram_os_deadlock(theme: Theme):
+    img, d = canvas(820, 420, theme)
+    d.text((PAD, PAD), "데드락: 서로 기다리며 멈춤", fill=theme.ink, font=F_TITLE)
+
+    # Two actors
+    box(d, (120, 130, 300, 210), theme, fill=theme.highlight)
+    center_text(d, 210, 158, "Skipper", F_BODY, theme.ink)
+    center_text(d, 210, 186, "펜 보유", F_SMALL, theme.muted)
+
+    box(d, (520, 130, 700, 210), theme, fill=theme.highlight)
+    center_text(d, 610, 158, "Kowalski", F_BODY, theme.ink)
+    center_text(d, 610, 186, "노트 보유", F_SMALL, theme.muted)
+
+    # Resources
+    box(d, (120, 280, 300, 340), theme, fill=theme.fill)
+    center_text(d, 210, 308, "노트 대기", F_BODY, theme.ink)
+
+    box(d, (520, 280, 700, 340), theme, fill=theme.fill)
+    center_text(d, 610, 308, "펜 대기", F_BODY, theme.ink)
+
+    # Cycle arrows
+    d.line((300, 170, 520, 170), fill=theme.orange, width=3)
+    d.polygon([(520, 170), (508, 164), (508, 176)], fill=theme.orange)
+    d.text((360, 140), "노트 원함", fill=theme.orange, font=F_SMALL)
+
+    d.line((520, 310, 300, 310), fill=theme.orange, width=3)
+    d.polygon([(300, 310), (312, 304), (312, 316)], fill=theme.orange)
+    d.text((360, 320), "펜 원함", fill=theme.orange, font=F_SMALL)
+
+    d.line((210, 210, 210, 280), fill=theme.line, width=2)
+    d.line((610, 210, 610, 280), fill=theme.line, width=2)
+
+    d.text((PAD, 370), "순환 대기: A→B, B→A. 네 조건이 겹치면 데드락", fill=theme.accent, font=F_HINT)
+    save("os-deadlock.png", img, theme)
+
+
 ALL = [
     diagram_array,
     diagram_linked,
@@ -384,6 +470,9 @@ ALL = [
     diagram_greedy,
     diagram_dp,
     diagram_sort,
+    diagram_os_process_thread,
+    diagram_os_memory_layout,
+    diagram_os_deadlock,
 ]
 
 
