@@ -1,0 +1,14 @@
+---
+description: Never attribute git commits/PRs to Cursor/AI or mutual99
+alwaysApply: true
+---
+
+# No AI / wrong-account git attribution
+
+When creating commits or pull requests in this repo:
+
+- Do **not** add `Co-authored-by: Cursor`, `Made-with: Cursor`, or any AI/agent trailer
+- Do **not** ask to enable commit/PR attribution to the agent
+- Do **not** use `mutual99` / `152463166+mutual99@...` (deleted account email)
+- Author/committer must be `mutual534` / `299343060+DavidLee534@users.noreply.github.com`
+- If a commit message template would include agent attribution, strip it before committing
