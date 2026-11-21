@@ -63,6 +63,8 @@
 - AWS / GCP / Azure 기초
 - 모니터링, 로깅, 장애 대응
 
+→ 교재형 노트: **[infra/](infra/README.md)** (Linux · Docker · K8s · CI/CD Ready)
+
 ### Computer Science
 - 자료구조, 알고리즘
 - 운영체제, 네트워크, HTTP
