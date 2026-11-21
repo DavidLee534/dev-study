@@ -24,12 +24,12 @@
 
 | 장 | 주제 | 문서 | 상태 |
 | :--- | :--- | :--- | :--- |
-| 01 | 웹 요청 흐름 | [01_웹요청흐름.md](01_웹요청흐름.md) | Ready |
-| 02 | 계층과 DI | [02_계층과DI.md](02_계층과DI.md) | Ready |
-| 03 | JPA와 영속성 | [03_JPA와영속성.md](03_JPA와영속성.md) | Ready |
-| 04 | 검증과 예외 | [04_검증과예외.md](04_검증과예외.md) | Ready |
-| 05 | 인증·인가 | [05_인증인가.md](05_인증인가.md) | Ready |
-| 06 | 테스트와 문서 | [06_테스트와문서.md](06_테스트와문서.md) | Ready |
+| 01 | 웹 요청 흐름 | [01_Web_Request_Flow.md](01_Web_Request_Flow.md) | Ready |
+| 02 | 계층과 DI | [02_Layers_DI.md](02_Layers_DI.md) | Ready |
+| 03 | JPA와 영속성 | [03_JPA_Persistence.md](03_JPA_Persistence.md) | Ready |
+| 04 | 검증과 예외 | [04_Validation_Exception.md](04_Validation_Exception.md) | Ready |
+| 05 | 인증·인가 | [05_Authz.md](05_Authz.md) | Ready |
+| 06 | 테스트와 문서 | [06_Test_Docs.md](06_Test_Docs.md) | Ready |
 
 <br />
 
@@ -38,6 +38,6 @@
   <img src="../../assets/sections/section-next.svg" width="100%" alt="Next" />
 </picture>
 
-시작: **[01. 웹 요청 흐름](01_웹요청흐름.md)**
+시작: **[01. 웹 요청 흐름](01_Web_Request_Flow.md)**
 
 [← Backend 허브](../README.md)

@@ -28,12 +28,12 @@
 
 | 장 | 주제 | 문서 | 상태 |
 | :--- | :--- | :--- | :--- |
-| 01 | 자료구조 | [01_자료구조.md](01_자료구조.md) | Ready |
-| 02 | 알고리즘 | [02_알고리즘.md](02_알고리즘.md) | Ready |
-| 03 | 운영체제 | [03_운영체제.md](03_운영체제.md) | Ready |
-| 04 | 네트워크 | [04_네트워크.md](04_네트워크.md) | Ready |
-| 05 | 데이터베이스 이론 | [05_데이터베이스.md](05_데이터베이스.md) | Ready |
-| 06 | 설계 패턴 | [06_설계패턴.md](06_설계패턴.md) | Ready |
+| 01 | 자료구조 | [01_Data_Structures.md](01_Data_Structures.md) | Ready |
+| 02 | 알고리즘 | [02_Algorithms.md](02_Algorithms.md) | Ready |
+| 03 | 운영체제 | [03_Operating_Systems.md](03_Operating_Systems.md) | Ready |
+| 04 | 네트워크 | [04_Networks.md](04_Networks.md) | Ready |
+| 05 | 데이터베이스 이론 | [05_Database_Theory.md](05_Database_Theory.md) | Ready |
+| 06 | 설계 패턴 | [06_Design_Patterns.md](06_Design_Patterns.md) | Ready |
 
 <br />
 
@@ -53,4 +53,4 @@
   <img src="../assets/sections/section-next.svg" width="100%" alt="Next Chapter" />
 </picture>
 
-CS 트랙 본문: **01–06 Ready**. 시작은 **[01. 자료구조](01_자료구조.md)**
+CS 트랙 본문: **01–06 Ready**. 시작은 **[01. 자료구조](01_Data_Structures.md)**

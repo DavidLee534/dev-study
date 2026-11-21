@@ -29,7 +29,7 @@
 FastAPI와 자주 붙는 SQLAlchemy는 JPA와 같은 **매핑·세션·트랜잭션** 문제를 푼다.  
 세션을 `Depends`로 나누어 주는 패턴이 관례다.
 
-대응: Spring **[03](../spring/03_JPA와영속성.md)** · Nest **[03](../nestjs/03_ORM과DB.md)**
+대응: Spring **[03](../spring/03_JPA_Persistence.md)** · Nest **[03](../nestjs/03_ORM_DB.md)**
 
 <br />
 
@@ -164,4 +164,4 @@ lazy 로딩과 joinedload 선택이 N+1을 가른다.
   <img src="../../assets/sections/section-next.svg" width="100%" alt="Next Chapter" />
 </picture>
 
-다음 장: **[04. 의존성 공유와 보안](04_의존성공유와보안.md)** — Bearer와 현재 유저
+다음 장: **[04. 의존성 공유와 보안](04_Deps_Security.md)** — Bearer와 현재 유저

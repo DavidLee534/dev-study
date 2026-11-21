@@ -1,0 +1,170 @@
+<div align="center">
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="../assets/sections/banner-cs-dark.svg" />
+  <img src="../assets/sections/banner-cs.svg" width="100%" alt="AI / ML" />
+</picture>
+
+# 02. 평가와 데이터
+
+**나눈 데이터로 과적합을 가리고, 지표로 성능을 말한다.**
+
+<p>
+  <img src="https://img.shields.io/badge/Chapter-02-0F172A?style=flat-square" alt="Chapter 02" />
+  &nbsp;
+  <img src="https://img.shields.io/badge/Track-AI_ML-334155?style=flat-square" alt="AI_ML" />
+  &nbsp;
+  <img src="https://img.shields.io/badge/Status-Ready-16A34A?style=flat-square" alt="Ready" />
+</p>
+
+</div>
+
+<br />
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="../assets/sections/section-goals-dark.svg" />
+  <img src="../assets/sections/section-goals.svg" width="100%" alt="Learning Goals" />
+</picture>
+
+학습 오차만 보면 “외웠는지”를 모른다.  
+**안 본 데이터**로 평가하고, 문제에 맞는 **지표**를 고른다.
+
+<br />
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="../assets/sections/section-contents-dark.svg" />
+  <img src="../assets/sections/section-contents.svg" width="100%" alt="Contents" />
+</picture>
+
+| # | 주제 | 한 줄 |
+| :--- | :--- | :--- |
+| 01 | train / val / test | 데이터 나누기 |
+| 02 | 과적합 / 과소적합 | 맞춘 정도 |
+| 03 | 분류 지표 | 정확도·정밀도·재현율 |
+| 04 | 회귀 지표 | 오차 감각 |
+
+<br />
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="../assets/sections/section-concept-dark.svg" />
+  <img src="../assets/sections/section-concept.svg" width="100%" alt="Concept" />
+</picture>
+
+### 01. train / val / test
+
+**배우기 / 고르기 / 최종 성적**을 나눈다.
+
+#### 직관
+
+연습 문제 · 모의고사 · 본고사다.  
+본고사(test)로 반복 튜닝하면 또한 외우게 된다.
+
+#### 핵심 성질
+
+| 집합 | 역할 |
+| :--- | :--- |
+| train | 파라미터 학습 |
+| validation | 모델·하이퍼 선택 |
+| test | 최종 보고용 (가능하면 한 번) |
+
+```python
+data = list(range(10))
+train, val, test = data[:6], data[6:8], data[8:]
+print(train, val, test)
+```
+
+---
+
+### 02. 과적합 / 과소적합
+
+**외움 vs 덜 배움.**
+
+#### 직관
+
+연습만 100점인데 실전 0점이면 과적합,  
+연습도 실전도 못하면 과소적합에 가깝다.
+
+#### 핵심 성질
+
+| 상태 | 감각 |
+| :--- | :--- |
+| 과적합 | train ↑, val/test ↓ |
+| 과소적합 | 둘 다 낮음 |
+| 완화 | 더 데이터, 정규화, 단순한 모델, 조기 종료 |
+
+---
+
+### 03. 분류 지표
+
+**맞춘 개수만으로 부족할 때가 많다.**
+
+#### 직관
+
+희귀 질병 검사다.  
+항상 “정상”이라 해도 정확도는 높을 수 있다.
+
+#### 핵심 성질
+
+| 지표 | 감각 |
+| :--- | :--- |
+| Accuracy | 전체 중 맞춘 비율 |
+| Precision | 양성이라고 한 것 중 진짜 |
+| Recall | 진짜 양성 중 찾아낸 비율 |
+| F1 | 정밀도·재현율 조화 |
+
+```python
+# TP/FP/FN으로 정밀도·재현율
+tp, fp, fn = 8, 2, 3
+precision = tp / (tp + fp)
+recall = tp / (tp + fn)
+print(round(precision, 2), round(recall, 2))
+```
+
+---
+
+### 04. 회귀 지표
+
+**숫자 예측의 틀린 크기.**
+
+#### 직관
+
+예상 도착 시간과 실제의 차이(분)다.
+
+#### 핵심 성질
+
+| 지표 | 감각 |
+| :--- | :--- |
+| MAE | 절대 오차 평균 |
+| MSE / RMSE | 큰 오차에 더 민감 |
+
+```python
+y_true = [10, 20, 30]
+y_pred = [12, 18, 33]
+mae = sum(abs(a - b) for a, b in zip(y_true, y_pred)) / len(y_true)
+print(mae)
+```
+
+<br />
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="../assets/sections/section-summary-dark.svg" />
+  <img src="../assets/sections/section-summary.svg" width="100%" alt="Summary" />
+</picture>
+
+### 무엇을 먼저 떠올릴까
+
+| 상황 | 후보 |
+| :--- | :--- |
+| 성적 부풀림 | train/val/test 분리 |
+| 연습만 잘함 | 과적합 |
+| 불균형 분류 | precision / recall |
+| 숫자 예측 | MAE / RMSE |
+
+<br />
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="../assets/sections/section-next-dark.svg" />
+  <img src="../assets/sections/section-next.svg" width="100%" alt="Next Chapter" />
+</picture>
+
+다음 장: **[03. 임베딩과 유사도](03_Embedding_Similarity.md)** — 의미를 벡터로

@@ -29,7 +29,7 @@
 CI는 Continuous Integration, CD는 Delivery/Deployment다.  
 핵심은 “사람 기억”이 아니라 **반복 가능한 파이프라인**이다.
 
-관련: Tools **[02. 브랜치와 PR](../tools/02_브랜치와PR.md)**
+관련: Tools **[02. 브랜치와 PR](../tools/02_Branch_PR.md)**
 
 <br />
 

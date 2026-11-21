@@ -5,12 +5,12 @@
 
 ## Java
 
-- [기초.md](java/기초.md) — `L01` ~ `L24`
-- [심화.md](java/심화.md) — `L01` ~ `L19`
+- [basics.md](java/basics.md) — `L01` ~ `L24`
+- [advanced.md](java/advanced.md) — `L01` ~ `L19`
 
 ## Python
 
-- [기초.md](python/기초.md) — `L01` ~ `L17` (변수, 제어문, 자료구조, 함수)
-- [심화.md](python/심화.md) — `L01` ~ `L18` (클래스 ~ venv/pip)
+- [basics.md](python/basics.md) — `L01` ~ `L17` (변수, 제어문, 자료구조, 함수)
+- [advanced.md](python/advanced.md) — `L01` ~ `L18` (클래스 ~ venv/pip)
 
 예시 하위 폴더: `java/`, `kotlin/`, `typescript/`, `python/`, `go/`

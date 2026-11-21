@@ -28,12 +28,12 @@
 
 | 장 | 주제 | 문서 | 상태 |
 | :--- | :--- | :--- | :--- |
-| 01 | 학습의 감각 | [01_학습의감각.md](01_학습의감각.md) | Ready |
-| 02 | 평가와 데이터 | [02_평가와데이터.md](02_평가와데이터.md) | Ready |
-| 03 | 임베딩과 유사도 | [03_임베딩과유사도.md](03_임베딩과유사도.md) | Ready |
-| 04 | LLM과 프롬프트 | [04_LLM과프롬프트.md](04_LLM과프롬프트.md) | Ready |
+| 01 | 학습의 감각 | [01_Learning_Sense.md](01_Learning_Sense.md) | Ready |
+| 02 | 평가와 데이터 | [02_Eval_Data.md](02_Eval_Data.md) | Ready |
+| 03 | 임베딩과 유사도 | [03_Embedding_Similarity.md](03_Embedding_Similarity.md) | Ready |
+| 04 | LLM과 프롬프트 | [04_LLM_Prompt.md](04_LLM_Prompt.md) | Ready |
 | 05 | RAG | [05_RAG.md](05_RAG.md) | Ready |
-| 06 | 에이전트와 운영 | [06_에이전트와운영.md](06_에이전트와운영.md) | Ready |
+| 06 | 에이전트와 운영 | [06_Agent_Ops.md](06_Agent_Ops.md) | Ready |
 
 <br />
 
@@ -42,6 +42,6 @@
   <img src="../assets/sections/section-next.svg" width="100%" alt="Next" />
 </picture>
 
-시작: **[01. 학습의 감각](01_학습의감각.md)**
+시작: **[01. 학습의 감각](01_Learning_Sense.md)**
 
 [← Dev Study](../README.md)

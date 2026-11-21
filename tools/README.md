@@ -24,12 +24,12 @@
 
 | 장 | 주제 | 문서 | 상태 |
 | :--- | :--- | :--- | :--- |
-| 01 | Git 흐름 | [01_Git흐름.md](01_Git흐름.md) | Ready |
-| 02 | 브랜치와 PR | [02_브랜치와PR.md](02_브랜치와PR.md) | Ready |
-| 03 | 코드 리뷰 | [03_코드리뷰.md](03_코드리뷰.md) | Ready |
-| 04 | 이슈와 문서 | [04_이슈와문서.md](04_이슈와문서.md) | Ready |
-| 05 | IDE와 디버깅 | [05_IDE와디버깅.md](05_IDE와디버깅.md) | Ready |
-| 06 | 협업 습관 | [06_협업습관.md](06_협업습관.md) | Ready |
+| 01 | Git 흐름 | [01_Git_Flow.md](01_Git_Flow.md) | Ready |
+| 02 | 브랜치와 PR | [02_Branch_PR.md](02_Branch_PR.md) | Ready |
+| 03 | 코드 리뷰 | [03_Code_Review.md](03_Code_Review.md) | Ready |
+| 04 | 이슈와 문서 | [04_Issues_Docs.md](04_Issues_Docs.md) | Ready |
+| 05 | IDE와 디버깅 | [05_IDE_Debugging.md](05_IDE_Debugging.md) | Ready |
+| 06 | 협업 습관 | [06_Collab_Habits.md](06_Collab_Habits.md) | Ready |
 
 <br />
 
@@ -38,6 +38,6 @@
   <img src="../assets/sections/section-next.svg" width="100%" alt="Next" />
 </picture>
 
-시작: **[01. Git 흐름](01_Git흐름.md)**
+시작: **[01. Git 흐름](01_Git_Flow.md)**
 
 [← Dev Study](../README.md)

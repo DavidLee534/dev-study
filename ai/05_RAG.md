@@ -171,4 +171,4 @@ guard = (
   <img src="../assets/sections/section-next.svg" width="100%" alt="Next Chapter" />
 </picture>
 
-다음 장: **[06. 에이전트와 운영](06_에이전트와운영.md)** — 도구·평가·비용
+다음 장: **[06. 에이전트와 운영](06_Agent_Ops.md)** — 도구·평가·비용

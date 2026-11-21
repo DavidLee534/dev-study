@@ -28,12 +28,12 @@
 
 | 장 | 주제 | 문서 | 상태 |
 | :--- | :--- | :--- | :--- |
-| 01 | Linux와 서버 | [01_Linux와서버.md](01_Linux.md) | Ready |
-| 02 | 네트워크와 엣지 | [02_네트워크와엣지.md](02_Network_Edge.md) | Ready |
+| 01 | Linux와 서버 | [01_Linux.md](01_Linux.md) | Ready |
+| 02 | 네트워크와 엣지 | [02_Network_Edge.md](02_Network_Edge.md) | Ready |
 | 03 | Docker | [03_Docker.md](03_Docker.md) | Ready |
 | 04 | Kubernetes | [04_Kubernetes.md](04_Kubernetes.md) | Ready |
 | 05 | CI/CD | [05_CICD.md](05_CICD.md) | Ready |
-| 06 | 클라우드와 관측 | [06_클라우드와관측.md](06_Cloud_Observability.md) | Ready |
+| 06 | 클라우드와 관측 | [06_Cloud_Observability.md](06_Cloud_Observability.md) | Ready |
 
 <br />
 

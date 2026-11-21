@@ -24,12 +24,12 @@
 
 | 장 | 주제 | 문서 | 상태 |
 | :--- | :--- | :--- | :--- |
-| 01 | 모듈과 DI | [01_모듈과DI.md](01_모듈과DI.md) | Ready |
-| 02 | 컨트롤러와 파이프 | [02_컨트롤러와파이프.md](02_컨트롤러와파이프.md) | Ready |
-| 03 | ORM과 DB | [03_ORM과DB.md](03_ORM과DB.md) | Ready |
-| 04 | 가드와 인증 | [04_가드와인증.md](04_가드와인증.md) | Ready |
-| 05 | 예외와 인터셉터 | [05_예외와인터셉터.md](05_예외와인터셉터.md) | Ready |
-| 06 | 테스트 | [06_테스트.md](06_테스트.md) | Ready |
+| 01 | 모듈과 DI | [01_Modules_DI.md](01_Modules_DI.md) | Ready |
+| 02 | 컨트롤러와 파이프 | [02_Controller_Pipe.md](02_Controller_Pipe.md) | Ready |
+| 03 | ORM과 DB | [03_ORM_DB.md](03_ORM_DB.md) | Ready |
+| 04 | 가드와 인증 | [04_Guards_Auth.md](04_Guards_Auth.md) | Ready |
+| 05 | 예외와 인터셉터 | [05_Exception_Interceptor.md](05_Exception_Interceptor.md) | Ready |
+| 06 | 테스트 | [06_Testing.md](06_Testing.md) | Ready |
 
 <br />
 
@@ -38,6 +38,6 @@
   <img src="../../assets/sections/section-next.svg" width="100%" alt="Next" />
 </picture>
 
-시작: **[01. 모듈과 DI](01_모듈과DI.md)**
+시작: **[01. 모듈과 DI](01_Modules_DI.md)**
 
 [← Backend 허브](../README.md)

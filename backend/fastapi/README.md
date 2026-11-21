@@ -24,12 +24,12 @@
 
 | 장 | 주제 | 문서 | 상태 |
 | :--- | :--- | :--- | :--- |
-| 01 | 라우팅과 의존성 | [01_라우팅과의존성.md](01_라우팅과의존성.md) | Ready |
-| 02 | Pydantic 검증 | [02_Pydantic검증.md](02_Pydantic검증.md) | Ready |
+| 01 | 라우팅과 의존성 | [01_Routing_Depends.md](01_Routing_Depends.md) | Ready |
+| 02 | Pydantic 검증 | [02_Pydantic_Validation.md](02_Pydantic_Validation.md) | Ready |
 | 03 | SQLAlchemy | [03_SQLAlchemy.md](03_SQLAlchemy.md) | Ready |
-| 04 | 의존성 공유와 보안 | [04_의존성공유와보안.md](04_의존성공유와보안.md) | Ready |
-| 05 | 미들웨어와 예외 | [05_미들웨어와예외.md](05_미들웨어와예외.md) | Ready |
-| 06 | 테스트 | [06_테스트.md](06_테스트.md) | Ready |
+| 04 | 의존성 공유와 보안 | [04_Deps_Security.md](04_Deps_Security.md) | Ready |
+| 05 | 미들웨어와 예외 | [05_Middleware_Exception.md](05_Middleware_Exception.md) | Ready |
+| 06 | 테스트 | [06_Testing.md](06_Testing.md) | Ready |
 
 <br />
 
@@ -38,6 +38,6 @@
   <img src="../../assets/sections/section-next.svg" width="100%" alt="Next" />
 </picture>
 
-시작: **[01. 라우팅과 의존성](01_라우팅과의존성.md)**
+시작: **[01. 라우팅과 의존성](01_Routing_Depends.md)**
 
 [← Backend 허브](../README.md)

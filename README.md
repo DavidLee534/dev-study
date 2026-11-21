@@ -52,6 +52,8 @@
 - 인덱스, 트랜잭션, 락, 쿼리 최적화
 - ORM / Query Builder (JPA, Prisma 등)
 
+→ 교재형 노트: **[database/](database/README.md)** (Schema · SQL · Index · Txn Ready)
+
 ### Mobile
 - Android, iOS, React Native, Flutter
 - 앱 아키텍처, 로컬 저장소, 푸시, 배포
@@ -110,7 +112,7 @@ dev-study/
 ```
 
 주제 안에서 필요하면 하위 폴더를 더 나눕니다.  
-예: `language/python/`, `cs/01_자료구조.md`
+예: `language/python/`, `cs/01_Data_Structures.md`
 
 ## 이 저장소를 쓰는 방식
 

@@ -1,0 +1,167 @@
+# Java 기초
+
+| 문서 | 내용 | 코드 |
+|------|------|------|
+| [basics.md](basics.md) | 변수, 제어문, 배열, 메서드 (`L01` ~ `L24`) | [`basics/code/`](basics/code/) |
+| [advanced.md](advanced.md) | 클래스·객체, 상속, 예외, 컬렉션, Stream 등 (`L01` ~ `L19`) | [`advanced/code/`](advanced/code/) |
+
+한 코드 파일 = 한 문법. 자세한 설명은 각 `.java` 주석에 있다.
+
+> 클래스 이름은 숫자로 시작할 수 없어서 `L01_` 접두사를 붙였다. (Lesson)
+
+파일명 `L01_` … `L24_` 순서로 공부하면 된다.
+
+```bash
+cd language/java/basics/code
+javac L01_MainMethod.java
+java L01_MainMethod
+```
+
+---
+
+## L01 · main 메서드
+
+프로그램 시작점. JVM이 `main`을 찾아 실행한다.  
+파일명과 `public class` 이름은 같아야 한다.
+
+→ [`basics/code/L01_MainMethod.java`](basics/code/L01_MainMethod.java)
+
+## L02 · 변수
+
+값을 담는 이름. `타입 이름 = 값;` 형태로 선언한다.
+
+→ [`basics/code/L02_Variables.java`](basics/code/L02_Variables.java)
+
+## L03 · 원시 타입
+
+숫자·논리 값을 담는 기본 타입. 자주 쓰는 것: `int`, `long`, `double`, `boolean`.  
+`long`은 끝에 `L`, `float`은 끝에 `f`.
+
+→ [`basics/code/L03_PrimitiveTypes.java`](basics/code/L03_PrimitiveTypes.java)
+
+## L04 · 문자·문자열
+
+`char`는 글자 하나(`'A'`), `String`은 문자열(`"안녕"`).
+
+→ [`basics/code/L04_StringChar.java`](basics/code/L04_StringChar.java)
+
+## L05 · 상수 final
+
+`final`이 붙은 변수는 한 번 정하면 다시 대입할 수 없다.
+
+→ [`basics/code/L05_FinalConstant.java`](basics/code/L05_FinalConstant.java)
+
+## L06 · 형변환
+
+작은 → 큰은 자동. 큰 → 작은은 `(타입)`으로 강제하며 값이 잘릴 수 있다.
+
+→ [`basics/code/L06_Casting.java`](basics/code/L06_Casting.java)
+
+## L07 · 출력
+
+`println`(줄바꿈) / `print` / `printf`(포맷: `%s` `%d` `%.1f` `%n`).
+
+→ [`basics/code/L07_Output.java`](basics/code/L07_Output.java)
+
+## L08 · 산술 연산자
+
+`+` `-` `*` `/` `%`. 정수÷정수는 소수점이 버려진다.
+
+→ [`basics/code/L08_Arithmetic.java`](basics/code/L08_Arithmetic.java)
+
+## L09 · 증감 연산자
+
+`++` / `--`. 전위(`++x`)는 먼저 바꾸고, 후위(`x++`)는 쓴 뒤 바꾼다.
+
+→ [`basics/code/L09_Increment.java`](basics/code/L09_Increment.java)
+
+## L10 · 비교 연산자
+
+`==` `!=` `>` `>=` `<` `<=`. 결과는 항상 `boolean`.  
+`==`는 비교, `=`는 대입.
+
+→ [`basics/code/L10_Comparison.java`](basics/code/L10_Comparison.java)
+
+## L11 · 논리 연산자
+
+`&&`(AND), `||`(OR), `!`(NOT). 앞쪽에서 결과가 정해지면 뒤를 평가하지 않는다(단축 평가).
+
+→ [`basics/code/L11_Logical.java`](basics/code/L11_Logical.java)
+
+## L12 · if / else
+
+조건이 true일 때만 블록을 실행한다. `else if`로 분기할 수 있다.
+
+→ [`basics/code/L12_IfElse.java`](basics/code/L12_IfElse.java)
+
+## L13 · 삼항 연산자
+
+`조건 ? 참값 : 거짓값` — if/else를 한 줄로 줄인 형태.
+
+→ [`basics/code/L13_Ternary.java`](basics/code/L13_Ternary.java)
+
+## L14 · switch
+
+값에 따라 분기한다. Java 14+ 화살표(`->`) 문법을 쓴다.
+
+→ [`basics/code/L14_SwitchDemo.java`](basics/code/L14_SwitchDemo.java)
+
+## L15 · for
+
+횟수가 정해져 있을 때. `for (초기화; 조건; 증감)`.
+
+→ [`basics/code/L15_ForLoop.java`](basics/code/L15_ForLoop.java)
+
+## L16 · while
+
+조건이 true인 동안 반복. 조건을 바꾸는 코드가 없으면 무한 루프가 된다.
+
+→ [`basics/code/L16_WhileLoop.java`](basics/code/L16_WhileLoop.java)
+
+## L17 · do-while
+
+블록을 먼저 실행한 뒤 조건을 검사한다. 최소 1번은 실행된다.
+
+→ [`basics/code/L17_DoWhile.java`](basics/code/L17_DoWhile.java)
+
+## L18 · break / continue
+
+`break`는 반복을 끝내고, `continue`는 이번 회차만 건너뛴다.
+
+→ [`basics/code/L18_BreakContinue.java`](basics/code/L18_BreakContinue.java)
+
+## L19 · 배열
+
+같은 타입 값을 한 줄로 담는다. 인덱스는 0부터, 길이는 `length`.
+
+→ [`basics/code/L19_Array.java`](basics/code/L19_Array.java)
+
+## L20 · 향상된 for (for-each)
+
+`for (타입 변수 : 배열)`. 인덱스가 필요 없을 때 배열 전체를 순회한다.
+
+→ [`basics/code/L20_ForEach.java`](basics/code/L20_ForEach.java)
+
+## L21 · 메서드
+
+반복 코드를 묶어 이름 붙인 것. `반환타입 이름() { ... }` 정의 후 호출한다.
+
+→ [`basics/code/L21_Method.java`](basics/code/L21_Method.java)
+
+## L22 · 매개변수
+
+호출할 때 넘겨 주는 입력값. 정의쪽 이름 = 매개변수, 넣는 값 = 인자.
+
+→ [`basics/code/L22_Parameters.java`](basics/code/L22_Parameters.java)
+
+## L23 · return
+
+메서드가 결과를 돌려준다. 반환 타입을 `void` 대신 `int` 등으로 적는다.
+
+→ [`basics/code/L23_Return.java`](basics/code/L23_Return.java)
+
+## L24 · 오버로딩
+
+같은 이름이지만 매개변수 개수/타입이 다르면 여러 개 정의할 수 있다.
+
+→ [`basics/code/L24_Overload.java`](basics/code/L24_Overload.java)
